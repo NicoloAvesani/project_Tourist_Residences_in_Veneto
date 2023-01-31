@@ -5,6 +5,9 @@ import matplotlib.pyplot as plt
 st.title('Touristic Residences in Veneto :lion_face:')
 st.title('Nicolò Avesani VR490189, Final Project')
 
+st.sidebar.write("What do you want to see?")
+
+
 st.header('## 1 Explore and Clean the Dataset')
 
 st.write('Firstly, I import the dataset using pandas. That is how it looks like:')
@@ -460,6 +463,13 @@ vicenza_descriptive = tourism_clear_class_groupby_sum.T['VICENZA']
 city_list = [belluno_descriptive, padova_descriptive, treviso_descriptive, rovigo_descriptive, venezia_descriptive, verona_descriptive, vicenza_descriptive]
 
 
+
+
+
+
+
+
+
 import streamlit as st
 import matplotlib.pyplot as plt
 
@@ -602,6 +612,8 @@ st.header('PLOTS')
 ## This may include features such as designated pet-friendly rooms or areas, 
 ## easy access to outdoor spaces for exercise and relief, and possibly even on-site pet services such as grooming or boarding.
 
+st.header('Pet-Friendly TR in Veneto')
+st.write('Definition of Animal Friendly --> Animal friendly touristic residences are accommodations that are: designed and managed to be welcoming and accommodating to both human guests and their animal companions. This may include features such as designated pet-friendly rooms or areas, easy access to outdoor spaces for exercise and relief, and possibly even on-site pet services such as grooming or boarding.')
 ## animal friendly pie charts
 
 from sklearn import preprocessing
@@ -650,4 +662,223 @@ plt.legend(labels, title='Provincie')
 plt.axis('equal')
 
 st.write(fig)
+
+animal_friendly_list=[belluno_af_tr, padova_af_tr, treviso_af_tr, rovigo_af_tr, venezia_af_tr, verona_af_tr, vicenza_af_tr]
+
+fig, axs = plt.subplots(1, 2, figsize=(30, 10))
+
+plt.suptitle('How many Pet-Friendly TR are in Veneto?', fontsize=25.9)
+
+axs[0].set_title('Stacked Bar Chart', fontsize=20)
+axs[0].set_xlabel('Province')
+axs[0].set_ylabel('Number of Touristic Residences')
+
+for i in range(len(animal_friendly_list)):
+    axs[0].bar(provincie[i], city_len[i], color='grey', width = 0.5, label='Total TR')
+    axs[0].bar(provincie[i], animal_friendly_list[i], color='orange', width = 0.5, label='Animal Friendly TR')
+    number=round((animal_friendly_list[i]/city_len[i])*100,1)
+    axs[0].text(provincie[i], animal_friendly_list[i], str(number)+'%', ha='center',va= 'bottom', weight='bold')
+
+# the following 3 lines are only to avoid legend repetition
+handles, labels = axs[0].get_legend_handles_labels()
+by_label = dict(zip(labels, handles))
+axs[0].legend(by_label.values(), by_label.keys())
+
+## 2nd bar chart ( multiple bar chart)
+
+X=np.arange(7)
+
+list_of_colors=[
+'red',
+'blue',
+'green',
+'cyan',
+'magenta',
+'yellow',
+'pink']
+
+data = [city_len, animal_friendly_list]
+
+axs[1].set_title('Multiple Bar Chart',fontsize=20)
+axs[1].set_xlabel('Province')
+axs[1].set_ylabel('Number of Touristic Residences')
+
+for i in X:
+    axs[1].bar(X[i] - 0.15, data[1][i], width = 0.25, color = list_of_colors[i])
+    axs[1].bar(X[i] + 0.15, data[0][i], color = 'grey', width = 0.25, label='Total TR')
+    number=round((animal_friendly_list[i]))
+    axs[1].text(X[i] - 0.15, data[1][i], str(number), ha='center',va= 'bottom', weight='bold')
+    number=round((city_len[i]))
+    axs[1].text(X[i] + 0.15, data[0][i], str(number), ha='center',va= 'bottom', weight='bold')
+    
+
+# the following 3 lines are only to avoid legend repetition
+handles, labels = axs[1].get_legend_handles_labels()
+by_label = dict(zip(labels, handles))
+axs[1].legend(by_label.values(), by_label.keys())
+
+## set the name of provincie in x axis
+axs[1].set_xticks(X)
+axs[1].set_xticklabels(provincie)
+
+st.write(fig)
+
+## How many touristic residences are pet friendly in Veneto?
+
+sum_pf = np.sum(animal_friendly_list)
+total_tr = np.sum(city_len)
+
+## ratio of animal friendly tr in Veneto
+
+ratio_af_tr = sum_pf/total_tr
+
+## create a pie chart with the pf touristic residences and the not pf touristic residences in Veneto
+
+labels = ['Pet Friendly', 'Not Pet Friendly']
+sizes = [ratio_af_tr, 1 - ratio_af_tr]
+
+fig1, ax1 = plt.subplots(figsize=(10,10))
+ax1.pie(sizes, labels=labels, autopct='%1.1f%%',
+        shadow=True, startangle=90, wedgeprops = { 'linewidth' : 3, 'edgecolor' : 'white' }, colors=palette)
+ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle
+
+plt.suptitle("Pet Friendly Touristic Residences in Veneto", fontsize=20)
+
+st.write(fig1)
+
+
+st.header('TR with Pool in Veneto')
+st.write('Definition of Pool: Touristic residences with pool refers to accomodation that have a swimming pool on the property. These types of properties are popular among tourists and vacationers who are looking for a place to stay that offers the convenience and luxury of having a pool to swim in during their stay. ')
+
+st.subheader('Pie Charts')
+belluno_pool_tr = belluno_descriptive.loc['PISCINA']
+padova_pool_tr = padova_descriptive.loc['PISCINA']
+treviso_pool_tr = treviso_descriptive.loc['PISCINA']
+rovigo_pool_tr = rovigo_descriptive.loc['PISCINA']
+venezia_pool_tr = venezia_descriptive.loc['PISCINA']
+verona_pool_tr = verona_descriptive.loc['PISCINA']
+vicenza_pool_tr = vicenza_descriptive.loc['PISCINA']
+
+## array with ratio of pool tr and total tr per provincia
+pool_array_1 = np.array([belluno_pool_tr/belluno_tr, padova_pool_tr/padova_tr, treviso_pool_tr/treviso_tr, rovigo_pool_tr/rovigo_tr, venezia_pool_tr/venezia_tr, verona_pool_tr/verona_tr, vicenza_pool_tr/vicenza_tr])
+normalized_arr_1 = preprocessing.normalize(pool_array_1[np.newaxis])
+
+## array with number of pool tr per provincia
+pool_array_2 = np.array([belluno_pool_tr, padova_pool_tr, treviso_pool_tr, rovigo_pool_tr, venezia_pool_tr, verona_pool_tr, vicenza_pool_tr])
+normalized_arr_2 = preprocessing.normalize(pool_array_2[np.newaxis])
+
+## create pie charts
+fig, axs = plt.subplots(nrows = 1, ncols = 2, figsize = (20, 10), constrained_layout = True)
+palette = sb.color_palette("pastel")
+
+
+## normalizing tha array
+## In this way i will have an array with normalized values for the two data
+data_1 = (normalized_arr_1.T).flatten()
+data_2 = (normalized_arr_2.T).flatten()
+
+labels = provincie
+
+donut_circle = plt.Circle( (0,0), 0.45, color = 'white')
+
+## axs[0] --> this is the one in which I see the normalizet proportion of TR with Pool per provincia
+axs[0].pie(data_1, autopct='%.2f%%', labels =labels, colors =palette)
+axs[0].add_artist(donut_circle)
+axs[0].set_title("Normalized Proportion of TR with Pool", fontweight='bold')
+
+donut_circle = plt.Circle( (0,0), 0.45, color = 'white')
+
+## axs[1] --> this is the axs in which I see the normalized proportion of TR with Pool in Veneto (Total number of TR with Pool)
+axs[1].pie(data_2, autopct='%.2f%%', colors =palette)
+axs[1].add_artist(donut_circle)
+axs[1].set_title("Not Normalized Proportion of TR with Pool", fontweight='bold')
+
+fig.suptitle(" TR with Pool in Veneto", fontsize=30)
+
+plt.legend(labels, title='Provincie')
+plt.axis('equal')
+
+st.write(fig)
+
+st.subheader('Bar Charts')
+
+
+pool_list=[belluno_pool_tr, padova_pool_tr, treviso_pool_tr, rovigo_pool_tr, venezia_pool_tr, verona_pool_tr, vicenza_pool_tr]
+
+fig, axs = plt.subplots(1, 2, figsize=(30, 10))
+
+plt.suptitle('How many TR have Pool in Veneto?', fontsize=25.9)
+
+axs[0].set_title('Stacked Bar Chart', fontsize=20)
+axs[0].set_xlabel('Province')
+axs[0].set_ylabel('Number of Touristic Residences')
+
+for i in range(len(pool_list)):
+    axs[0].bar(provincie[i], city_len[i], color='grey', width = 0.5, label='Total TR')
+    axs[0].bar(provincie[i], pool_list[i], color='orange', width = 0.5, label='TR with Pool')
+    number=round((pool_list[i]/city_len[i])*100,1)
+    axs[0].text(provincie[i], pool_list[i], str(number)+'%', ha='center',va= 'bottom', weight='bold')
+
+# the following 3 lines are only to avoid legend repetition
+handles, labels = axs[0].get_legend_handles_labels()
+by_label = dict(zip(labels, handles))
+axs[0].legend(by_label.values(), by_label.keys())
+
+## 2nd bar chart ( multiple bar chart)
+
+X=np.arange(7)
+
+data = [city_len, pool_list]
+
+axs[1].set_title('Multiple Bar Chart',fontsize=20)
+axs[1].set_xlabel('Province')
+axs[1].set_ylabel('Number of Touristic Residences')
+
+for i in X:
+    axs[1].bar(X[i] - 0.15, data[1][i], width = 0.25, color = list_of_colors[i])
+    axs[1].bar(X[i] + 0.15, data[0][i], color = 'grey', width = 0.25, label='Total TR')
+    number=round((pool_list[i]))
+    axs[1].text(X[i] - 0.15, data[1][i], str(number), ha='center',va= 'bottom', weight='bold')
+    number=round((city_len[i]))
+    axs[1].text(X[i] + 0.15, data[0][i], str(number), ha='center',va= 'bottom', weight='bold')
+    
+
+# the following 3 lines are only to avoid legend repetition
+handles, labels = axs[1].get_legend_handles_labels()
+by_label = dict(zip(labels, handles))
+axs[1].legend(by_label.values(), by_label.keys())
+
+## set the name of provincie in x axis
+axs[1].set_xticks(X)
+axs[1].set_xticklabels(provincie)
+
+st.write(fig)
+
+st.subheader('Portion of TR with Pool')
+
+## How many touristic residences have Pool in Veneto?
+
+sum_pool = np.sum(pool_list)
+total_tr = np.sum(city_len)
+
+## ratio of animal friendly tr in Veneto
+
+ratio_pool_tr = sum_pool/total_tr
+
+## create a pie chart with the pf touristic residences and the not pf touristic residences in Veneto
+
+labels = ['With Pool', 'Without Pool']
+sizes = [ratio_pool_tr, 1 - ratio_pool_tr]
+
+fig1, ax1 = plt.subplots(figsize=(10,8))
+ax1.pie(sizes, labels=labels, autopct='%1.1f%%',
+        shadow=True, startangle=90, wedgeprops = { 'linewidth' : 3, 'edgecolor' : 'white' }, colors=palette)
+ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle
+
+plt.suptitle("Touristic Residences with Pool in Veneto", fontsize=20)
+
+st.write(fig1)
+
+
+
 

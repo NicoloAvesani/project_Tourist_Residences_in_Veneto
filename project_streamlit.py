@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-
+import matplotlib.pyplot as plt
 
 st.title('Touristic Residences in Veneto :lion_face:')
 st.title('Nicolò Avesani VR490189, Final Project')
@@ -459,6 +459,55 @@ vicenza_descriptive = tourism_clear_class_groupby_sum.T['VICENZA']
 
 city_list = [belluno_descriptive, padova_descriptive, treviso_descriptive, rovigo_descriptive, venezia_descriptive, verona_descriptive, vicenza_descriptive]
 
+
+provincie = [
+    'BELLUNO',
+    'PADOVA',
+    'TREVISO',
+    'ROVIGO',
+    'VENEZIA',
+    'VERONA',
+    'VICENZA'
+]
+
+city = st.selectbox("What Provincia do you want to analyze?", provincie)
+
+plt.figure(figsize=(30,10))
+
+if city == 'BELLUNO':
+    st.title('Informations of TR in Belluno')
+    st.bar_chart(belluno_descriptive)
+    st.text('Total',city_len[0], str(city_len[0]), ha='center', weight='bold')
+
+elif city == 'PADOVA':
+    st.title('Informations of TR in Padova')
+    st.bar_chart(padova_descriptive)
+    st.text('Total',city_len[1], str(city_len[1]), ha='center', weight='bold')
+
+elif city == 'TREVISO':
+    st.title('Informations of TR in Treviso')
+    st.bar_chart(treviso_descriptive)
+    st.text('Total',city_len[2], str(city_len[2]), ha='center', weight='bold')
+
+elif city == 'ROVIGO':
+    st.title('Informations of TR in Rovigo')
+    st.bar_chart(rovigo_descriptive)
+    st.text('Total',city_len[3], str(city_len[3]), ha='center', weight='bold')
+
+elif city == 'VENEZIA':
+    st.title('Informations of TR in Venezia')
+    st.bar_chart(venezia_descriptive)
+    st.text('Total',city_len[4], str(city_len[4]), ha='center', weight='bold')
+
+elif city == 'VERONA':
+    st.title('Informations of TR in Verona')
+    st.bar_chart(verona_descriptive)
+    st.text('Total',city_len[5], str(city_len[5]), ha='center', weight='bold')
+
+elif city == 'VICENZA':
+    st.title('Informations of TR in Vicenza')
+    st.bar_chart(vicenza_descriptive)
+    st.text('Total',city_len[6], str(city_len[6]), ha='center', weight='bold')
 
 
 

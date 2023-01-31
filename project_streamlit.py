@@ -75,7 +75,16 @@ st.text('The data are for the majority composed by objects(43), with string valu
 st.text('Since I want to analyze the characteristics of the touristic residences,')
 st.text('I need to trensform all the data with string values')
 st.text('to boolean values 1 (True = Vero) and 0 (False = Falso)')
+st.text('I can use the map function')
 
+code_map='''
+for i in range(len(tourism_structures_df)):
+  for j in tourism_structures_df.columns:
+    if (tourism_structures_df[j][i] == 'Vero') | (tourism_structures_df[j][i] == 'Falso'):
+      tourism_structures_df[j] = tourism_structures_df[j].map({'Vero':1,'Falso':0}) 
+'''
+
+st.code(code_map)
 ## Since the majority of data are string values, so I need to transform them into boolean values with 1 for True(Vero) and 0 for False (Falso)
 
 for i in range(len(tourism_structures_df)):
@@ -83,9 +92,79 @@ for i in range(len(tourism_structures_df)):
     if (tourism_structures_df[j][i] == 'Vero') | (tourism_structures_df[j][i] == 'Falso'):
       tourism_structures_df[j] = tourism_structures_df[j].map({'Vero':1,'Falso':0}) 
 
+st.text('Info of the adjusted DF')
 ## i want to see the informations of the adjusted dataset
 
 tourism_structures_df.info()
 
 ## as i can see, the dataset has a total of 8504 entries and 45 clolumns
+
+code_adj_info = '''
+RangeIndex: 8504 entries, 0 to 8503
+Data columns (total 45 columns):
+ #   Column                 Non-Null Count  Dtype  
+---  ------                 --------------  -----  
+ 0   PROVINCIA              8504 non-null   object 
+ 1   COMUNE                 8504 non-null   object 
+ 2   LOCALITA               1573 non-null   object 
+ 3   TIPOLOGIA              8504 non-null   object 
+ 4   TIPOLOGIA SECONDARIA   3695 non-null   object 
+ 5   DENOMINAZIONE          8504 non-null   object 
+ 6   INDIRIZZO              8486 non-null   object 
+ 7   NUMERO CIVICO          8162 non-null   object 
+ 8   INTERNO                289 non-null    object 
+ 9   CAP                    8471 non-null   float64
+ 10  TELEFONO               8415 non-null   object 
+ 11  FAX                    5010 non-null   object 
+ 12  EMAIL                  8473 non-null   object 
+ 13  SITO WEB               5725 non-null   object 
+ 14  ZONA                   8504 non-null   object 
+ 15  PISCINA                8504 non-null   int64  
+ 16  PISCINA COPERTA        8504 non-null   int64  
+ 17  RISTORANTE             8504 non-null   int64  
+ 18  PARCHEGGIO             8504 non-null   int64  
+ 19  SALA CONFERENZE        8504 non-null   int64  
+ 20  ARIA CONDIZIONATA      8504 non-null   int64  
+ 21  GIOCHI BIMBI           8504 non-null   int64  
+ 22  SAUNA                  8504 non-null   int64  
+ 23  SOLARIUM               8504 non-null   int64  
+ 24  FITNESS                8504 non-null   int64  
+ 25  ANIMALI AMMESSI        8504 non-null   int64  
+ 26  CENTRO STORICO         8504 non-null   int64  
+ 27  ZONA FIERA             8504 non-null   int64  
+ 28  LAGO                   8504 non-null   int64  
+ 29  AEROPORTO              8504 non-null   int64  
+ 30  AUTOSTRADA             8504 non-null   int64  
+ 31  IMPIANTI RISALITA      8504 non-null   int64  
+ 32  STAZIONE FS            8504 non-null   int64  
+ 33  MARE                   8504 non-null   int64  
+ 34  TERMALE                8504 non-null   int64  
+ 35  PERIFERIA              8504 non-null   int64  
+ 36  COLLINARE              8504 non-null   int64  
+ 37  INGLESE                8504 non-null   int64  
+ 38  FRANCESE               8504 non-null   int64  
+ 39  TEDESCO                8504 non-null   int64  
+ 40  SPAGNOLO               8504 non-null   int64  
+ 41  CHIUSURA TEMPORANEA    8504 non-null   int64  
+ 42  CODICE IDENTIFICATIVO  8504 non-null   int64  
+ 43  DATA ULTIMA MODIFICA   8504 non-null   object 
+ 44  CLASSIFICAZIONE        7337 non-null   object '''
+
+st.code(code_adj_info)
+
+st.text('Now I have the descriptive characteristics adjusted.')
+st.text('They tell me the mean of total touristic residences in Veneto with the index as characteristic ')
+
+ts_desriptive_mean = tourism_structures_df.describe().T['mean']
+
+st.dataframe(ts_desriptive_mean)
+
+st.header('What about the Provincie?')
+
+tr_groupby_mean = tourism_structures_df.groupby(['PROVINCIA']).mean()
+
+st.text('Using groupby function, I can see the average number of TR with characteristics in column per Provincia')
+
+
+
 

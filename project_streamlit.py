@@ -470,7 +470,6 @@ if st.sidebar.checkbox("EDA"):
     st.write('__TOTAL PER PROVINCIA__')
 
     st.dataframe(tourism_clear_class_groupby_sum.T)
-
 import streamlit as st
 import matplotlib.pyplot as plt
 
@@ -733,6 +732,254 @@ ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle
 
 plt.suptitle("Touristic Residences with Pool in Veneto", fontsize=20)
 
+## ENGLISH 
+## Definition of English:
+## Touristic residences that speak English refer to accomodations where the staff or management can communicate effectively in English with the guests.
+## These types of properties are popular among tourists and vacationers who primarily speak English and may not be fluent in the local language. 
+## This can include properties where the front-desk staff, housekeeping, maintenance, and other staff members are able to speak and understand English, as well as properties where the majority of guests are English-speaking. 
+## Some touristic residences may also provide written information or signage in English to help guests navigate their stay. 
+## These type of touristic residences are a great option for travelers who are visiting a foreign country and want to feel comfortable and well-informed during their stay.
+
+belluno_eng_tr = belluno_descriptive.loc['INGLESE']
+padova_eng_tr = padova_descriptive.loc['INGLESE']
+treviso_eng_tr = treviso_descriptive.loc['INGLESE']
+rovigo_eng_tr = rovigo_descriptive.loc['INGLESE']
+venezia_eng_tr = venezia_descriptive.loc['INGLESE']
+verona_eng_tr = verona_descriptive.loc['INGLESE']
+vicenza_eng_tr = vicenza_descriptive.loc['INGLESE']
+
+## array with ratio of pool tr and total tr per provincia
+eng_array_1 = np.array([belluno_eng_tr/belluno_tr, padova_eng_tr/padova_tr, treviso_eng_tr/treviso_tr, rovigo_eng_tr/rovigo_tr, venezia_eng_tr/venezia_tr, verona_eng_tr/verona_tr, vicenza_eng_tr/vicenza_tr])
+normalized_arr_1 = preprocessing.normalize(eng_array_1[np.newaxis])
+
+## array with number of pool tr per provincia
+eng_array_2 = np.array([belluno_eng_tr, padova_eng_tr, treviso_eng_tr, rovigo_eng_tr, venezia_eng_tr, verona_eng_tr, vicenza_eng_tr])
+normalized_arr_2 = preprocessing.normalize(eng_array_2[np.newaxis])
+
+## create pie charts
+fig7, axs = plt.subplots(nrows = 1, ncols = 2, figsize = (20, 10), constrained_layout = True)
+palette = sb.color_palette("pastel")
+
+
+## normalizing tha array
+## In this way i will have an array with normalized values for the two data
+data_1 = (normalized_arr_1.T).flatten()
+data_2 = (normalized_arr_2.T).flatten()
+
+labels = provincie
+
+donut_circle = plt.Circle( (0,0), 0.45, color = 'white')
+
+## axs[0] --> this is the one in which I see the normalizet proportion of TR with Pool per provincia
+axs[0].pie(data_1, autopct='%.2f%%', labels =labels, colors =palette)
+axs[0].add_artist(donut_circle)
+axs[0].set_title("Normalized Proportion of TR speaking English ", fontweight='bold')
+
+donut_circle = plt.Circle( (0,0), 0.45, color = 'white')
+
+## axs[1] --> this is the axs in which I see the normalized proportion of TR with Pool in Veneto (Total number of TR with Pool)
+axs[1].pie(data_2, autopct='%.2f%%', colors =palette)
+axs[1].add_artist(donut_circle)
+axs[1].set_title("Not Normalized Proportion of TR speaking English ", fontweight='bold')
+
+fig7.suptitle("TR speaking English in Veneto", fontsize=30)
+
+plt.legend(labels, title='Provincie')
+plt.axis('equal')
+
+eng_list=[belluno_eng_tr, padova_eng_tr, treviso_eng_tr, rovigo_eng_tr, venezia_eng_tr, verona_eng_tr, vicenza_eng_tr]
+
+fig8, axs = plt.subplots(1, 2, figsize=(30, 10))
+
+plt.suptitle('How many TR speak English in Veneto?', fontsize=25.9)
+
+axs[0].set_title('Stacked Bar Chart', fontsize=20)
+axs[0].set_xlabel('Province')
+axs[0].set_ylabel('Number of Touristic Residences')
+
+for i in range(len(eng_list)):
+    axs[0].bar(provincie[i], city_len[i], color='grey', width = 0.5, label='Total TR')
+    axs[0].bar(provincie[i], eng_list[i], color='orange', width = 0.5, label='TR speaking English')
+    number=round((eng_list[i]/city_len[i])*100,1)
+    axs[0].text(provincie[i], eng_list[i], str(number)+'%', ha='center',va= 'bottom', weight='bold')
+
+# the following 3 lines are only to avoid legend repetition
+handles, labels = axs[0].get_legend_handles_labels()
+by_label = dict(zip(labels, handles))
+axs[0].legend(by_label.values(), by_label.keys())
+
+## 2nd bar chart ( multiple bar chart)
+
+X=np.arange(7)
+
+data = [city_len, eng_list]
+
+axs[1].set_title('Multiple Bar Chart',fontsize=20)
+axs[1].set_xlabel('Province')
+axs[1].set_ylabel('Number of Touristic Residences')
+
+for i in X:
+    axs[1].bar(X[i] - 0.15, data[1][i], width = 0.25, color = list_of_colors[i])
+    axs[1].bar(X[i] + 0.15, data[0][i], color = 'grey', width = 0.25, label='Total TR')
+    number=round((eng_list[i]))
+    axs[1].text(X[i] - 0.15, data[1][i], str(number), ha='center',va= 'bottom', weight='bold')
+    number=round((city_len[i]))
+    axs[1].text(X[i] + 0.15, data[0][i], str(number), ha='center',va= 'bottom', weight='bold')
+    
+
+# the following 3 lines are only to avoid legend repetition
+handles, labels = axs[1].get_legend_handles_labels()
+by_label = dict(zip(labels, handles))
+axs[1].legend(by_label.values(), by_label.keys())
+
+## set the name of provincie in x axis
+axs[1].set_xticks(X)
+axs[1].set_xticklabels(provincie)
+
+## How many touristic residences speak English in Veneto?
+
+sum_eng = np.sum(eng_list)
+total_tr = np.sum(city_len)
+
+## ratio in Veneto
+
+ratio_eng_tr = sum_eng/total_tr
+
+## create a pie chart 
+
+labels = ['Do Speak English', 'Do Not Speak English']
+sizes = [ratio_eng_tr, 1 - ratio_eng_tr]
+
+fig9, ax1 = plt.subplots(figsize=(10,7))
+ax1.pie(sizes, labels=labels, autopct='%1.1f%%',
+        shadow=True, startangle=90, wedgeprops = { 'linewidth' : 3, 'edgecolor' : 'white' }, colors=palette)
+ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle
+
+plt.suptitle("Touristic Residences Speak English in Veneto", fontsize=20)
+
+## ALL FOUR LANGUAGES (ENGLISH, SPANISH, DEUTH, FRENCH)
+## Definition of 4 Languages
+##Touristic residences that speak English, Spanish, Deutch, French refer to accomodations where the staff or management can communicate effectively in multiple languages,
+## including English, Spanish, Deutch, and French with the guests. 
+
+belluno_lan_tr = belluno_descriptive.loc['LANGUAGES']
+padova_lan_tr = padova_descriptive.loc['LANGUAGES']
+treviso_lan_tr = treviso_descriptive.loc['LANGUAGES']
+rovigo_lan_tr = rovigo_descriptive.loc['LANGUAGES']
+venezia_lan_tr = venezia_descriptive.loc['LANGUAGES']
+verona_lan_tr = verona_descriptive.loc['LANGUAGES']
+vicenza_lan_tr = vicenza_descriptive.loc['LANGUAGES']
+
+## array with ratio of pool tr and total tr per provincia
+lan_array_1 = np.array([belluno_lan_tr/belluno_tr, padova_lan_tr/padova_tr, treviso_lan_tr/treviso_tr, rovigo_lan_tr/rovigo_tr, venezia_lan_tr/venezia_tr, verona_lan_tr/verona_tr, vicenza_lan_tr/vicenza_tr])
+normalized_arr_1 = preprocessing.normalize(lan_array_1[np.newaxis])
+
+## array with number of pool tr per provincia
+lan_array_2 = np.array([belluno_lan_tr, padova_lan_tr, treviso_lan_tr, rovigo_lan_tr, venezia_lan_tr, verona_lan_tr, vicenza_lan_tr])
+normalized_arr_2 = preprocessing.normalize(lan_array_2[np.newaxis])
+
+## create pie charts
+fig10, axs = plt.subplots(nrows = 1, ncols = 2, figsize = (20, 10), constrained_layout = True)
+palette = sb.color_palette("pastel")
+
+
+## normalizing tha array
+## In this way i will have an array with normalized values for the two data
+data_1 = (normalized_arr_1.T).flatten()
+data_2 = (normalized_arr_2.T).flatten()
+
+labels = provincie
+
+donut_circle = plt.Circle( (0,0), 0.45, color = 'white')
+
+## axs[0] --> this is the one in which I see the normalizet proportion of TR with Pool per provincia
+axs[0].pie(data_1, autopct='%.2f%%', labels =labels, colors =palette)
+axs[0].add_artist(donut_circle)
+axs[0].set_title("Normalized Proportion of TR speaking All Languages ", fontweight='bold')
+
+donut_circle = plt.Circle( (0,0), 0.45, color = 'white')
+
+## axs[1] --> this is the axs in which I see the normalized proportion of TR with Pool in Veneto (Total number of TR with Pool)
+axs[1].pie(data_2, autopct='%.2f%%', colors =palette)
+axs[1].add_artist(donut_circle)
+axs[1].set_title("Not Normalized Proportion of TR speaking All Languages ", fontweight='bold')
+
+fig10.suptitle("TR speaking all Languages in Veneto", fontsize=30)
+
+plt.legend(labels, title='Provincie')
+plt.axis('equal')
+
+lan_list=[belluno_lan_tr, padova_lan_tr, treviso_lan_tr, rovigo_lan_tr, venezia_lan_tr, verona_lan_tr, vicenza_lan_tr]
+
+fig11, axs = plt.subplots(1, 2, figsize=(30, 10))
+
+plt.suptitle('How many TR speak All Languages in Veneto?', fontsize=25.9)
+
+axs[0].set_title('Stacked Bar Chart', fontsize=20)
+axs[0].set_xlabel('Province')
+axs[0].set_ylabel('Number of Touristic Residences')
+
+for i in range(len(lan_list)):
+    axs[0].bar(provincie[i], city_len[i], color='grey', width = 0.5, label='Total TR')
+    axs[0].bar(provincie[i], lan_list[i], color='orange', width = 0.5, label='TR speaking All Languages')
+    number=round((lan_list[i]/city_len[i])*100,1)
+    axs[0].text(provincie[i], lan_list[i], str(number)+'%', ha='center',va= 'bottom', weight='bold')
+
+# the following 3 lines are only to avoid legend repetition
+handles, labels = axs[0].get_legend_handles_labels()
+by_label = dict(zip(labels, handles))
+axs[0].legend(by_label.values(), by_label.keys())
+
+## 2nd bar chart ( multiple bar chart)
+
+X=np.arange(7)
+
+data = [city_len, lan_list]
+
+axs[1].set_title('Multiple Bar Chart',fontsize=20)
+axs[1].set_xlabel('Province')
+axs[1].set_ylabel('Number of Touristic Residences')
+
+for i in X:
+    axs[1].bar(X[i] - 0.15, data[1][i], width = 0.25, color = list_of_colors[i])
+    axs[1].bar(X[i] + 0.15, data[0][i], color = 'grey', width = 0.25, label='Total TR')
+    number=round((lan_list[i]))
+    axs[1].text(X[i] - 0.15, data[1][i], str(number), ha='center',va= 'bottom', weight='bold')
+    number=round((city_len[i]))
+    axs[1].text(X[i] + 0.15, data[0][i], str(number), ha='center',va= 'bottom', weight='bold')
+    
+
+# the following 3 lines are only to avoid legend repetition
+handles, labels = axs[1].get_legend_handles_labels()
+by_label = dict(zip(labels, handles))
+axs[1].legend(by_label.values(), by_label.keys())
+
+## set the name of provincie in x axis
+axs[1].set_xticks(X)
+axs[1].set_xticklabels(provincie)
+
+## How many touristic residences speak All Languages in Veneto?
+
+sum_lan = np.sum(lan_list)
+total_tr = np.sum(city_len)
+
+## ratio of animal friendly tr in Veneto
+
+ratio_lan_tr = sum_lan/total_tr
+
+## create a pie chart with the pf touristic residences and the not pf touristic residences in Veneto
+
+labels = ['Do Speak All Languages', 'Do Not Speak All Languages']
+sizes = [ratio_lan_tr, 1 - ratio_lan_tr]
+
+fig12, ax1 = plt.subplots(figsize=(10,7))
+ax1.pie(sizes, labels=labels, autopct='%1.1f%%',
+        shadow=True, startangle=90, wedgeprops = { 'linewidth' : 3, 'edgecolor' : 'white' }, colors=palette)
+ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle
+
+plt.suptitle("Touristic Residences Speak All Languages in Veneto", fontsize=20)
+
+
 
 if st.sidebar.checkbox("PLOTS"):
 
@@ -860,7 +1107,8 @@ if st.sidebar.checkbox("PLOTS"):
     
 
 
-    st.header('Pet-Friendly TR in Veneto')
+
+    st.title('Pet-Friendly TR in Veneto')
     st.write('Definition of Animal Friendly --> Animal friendly touristic residences are accommodations that are: designed and managed to be welcoming and accommodating to both human guests and their animal companions. This may include features such as designated pet-friendly rooms or areas, easy access to outdoor spaces for exercise and relief, and possibly even on-site pet services such as grooming or boarding.')
     st.subheader('Pie Charts')
     st.write(fig1)
@@ -871,7 +1119,7 @@ if st.sidebar.checkbox("PLOTS"):
     st.subheader('Portion of Pet-Frientdly TR in Veneto')
     st.write(fig3)
 
-    st.header('TR with Pool in Veneto')
+    st.title('TR with Pool in Veneto')
     st.write('Definition of Pool: Touristic residences with pool refers to accomodation that have a swimming pool on the property. These types of properties are popular among tourists and vacationers who are looking for a place to stay that offers the convenience and luxury of having a pool to swim in during their stay. ')
 
     st.subheader('Pie Charts')   
@@ -882,6 +1130,61 @@ if st.sidebar.checkbox("PLOTS"):
 
     st.subheader('Portion of TR wirh Pool in Veneto')
     st.write(fig6)
+
+    st.title('TR Speaking English in Veneto')
+    st.write('Definition of English: Touristic residences that speak English refer to accomodations where the staff or management can communicate effectively in English with the guests. These types of properties are popular among tourists and vacationers who primarily speak English and may not be fluent in the local language.  This can include properties where the front-desk staff, housekeeping, maintenance, and other staff members are able to speak and understand English, as well as properties where the majority of guests are English-speaking. Some touristic residences may also provide written information or signage in English to help guests navigate their stay. These type of touristic residences are a great option for travelers who are visiting a foreign country and want to feel comfortable and well-informed during their stay.')
+    
+    st.subheader('Pie Charts')
+    st.write(fig7)
+
+    st.subheader('Bar Charts')
+    st.write(fig8)
+
+    st.subheader('Portion of TR Speaking English in Veneto')
+    st.write(fig9)
+
+    st.title('TR speaking All 4 Languages in Veneto')
+    st.write('Definition of 4 Languages. Touristic residences that speak English, Spanish, Deutch, French refer to accomodations where the staff or management can communicate effectively in multiple languages, including English, Spanish, Deutch, and French with the guests.')
+    
+    st.subheader('Pie Charts')
+    st.write(fig10)
+
+    st.subheader('Bar Charts')
+    st.write(fig11)
+
+    st.subheader('Portion of TR Speaking All Languages in Veneto')
+    st.write(fig12)
+    
+    import streamlit as st
+    import folium
+    from IPython.core.display import display, HTML
+
+
+    def folium_deepnote_show(m):
+        data = m.get_root().render()
+        data_fixed_height = data.replace('width: 100%;height: 100%', 'width: 100%').replace('height: 100.0%;', 'height: 609px;', 1)
+        display(HTML(data_fixed_height))
+
+    def map_with_cities(cities):
+        m = folium.Map(location=[45.5236, 12.2756], zoom_start=8)
+        folium_deepnote_show(m)
+    
+        for city, coord in cities.items():
+            folium.Marker(location=coord, popup=city).add_to(m)
+        
+        return m
+
+    cities = {
+    'Belluno': [46.1451, 12.2457],
+    'Padova': [45.4167, 11.8833],
+    'Rovigo': [45.0805, 11.7914],
+    'Treviso': [45.6667, 12.2417],
+    'Venezia': [45.4389, 12.3194],
+    'Verona': [45.4386, 10.9916],
+    'Vicenza': [45.5409, 11.5341]
+    }
+
+    st.write(map_with_cities(cities),unsafe_allow_html=True)
 
 
 

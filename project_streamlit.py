@@ -7,13 +7,13 @@ st.title('Nicolò Avesani VR490189, Final Project')
 
 st.header('## 1 Explore and Clean the Dataset')
 
-st.text('Firstly, I import the dataset using pandas. That is how it looks like:')
+st.write('Firstly, I import the dataset using pandas. That is how it looks like:')
 
 tourism_structures_df = pd.read_csv('https://www.veneto.eu/static/opendata/dove-alloggiare.csv')
 
 st.dataframe(tourism_structures_df)
 
-st.text('Information about the original dataset:')
+st.write('Information about the original dataset:')
 
 code_original_info = '''
 RangeIndex: 8504 entries, 0 to 8503
@@ -70,12 +70,11 @@ dtypes: float64(1), int64(1), object(43)'''
 st.code(code_original_info)
 
 st.header('What can I understand?')
-st.text('As I can see, the dataset have 45 columns and 8504 rows.')
-st.text('The data are for the majority composed by objects(43), with string values!')
-st.text('Since I want to analyze the characteristics of the touristic residences,')
-st.text('I need to trensform all the data with string values')
-st.text('to boolean values 1 (True = Vero) and 0 (False = Falso)')
-st.text('I can use the map function')
+st.write('As I can see, the dataset have 45 columns and 8504 rows.')
+st.write('The data are for the majority composed by objects(43), with string values!')
+st.write('Since I want to analyze the characteristics of the touristic residences,')
+st.write('I need to trensform all the data with string values to boolean values 1 (True = Vero) and 0 (False = Falso)')
+st.write('I can use the map function')
 
 code_map='''
 for i in range(len(tourism_structures_df)):
@@ -152,8 +151,8 @@ Data columns (total 45 columns):
 
 st.code(code_adj_info)
 
-st.text('Now I have the descriptive characteristics adjusted.')
-st.text('They tell me the mean of total touristic residences in Veneto with the index as characteristic ')
+st.write('Now I have the descriptive characteristics adjusted.')
+st.write('They tell me the mean of total touristic residences in Veneto with the index as characteristic ')
 
 ts_desriptive_mean = tourism_structures_df.describe().T['mean']
 
@@ -163,7 +162,72 @@ st.header('What about the Provincie?')
 
 tr_groupby_mean = tourism_structures_df.groupby(['PROVINCIA']).mean()
 
-st.text('Using groupby function, I can see the average number of TR with characteristics in column per Provincia')
+st.write('Using groupby function, I can see the average number of TR with characteristics in column per Provincia')
+
+st.dataframe(tr_groupby_mean)
+
+## create a copy of the original dataframe in order to drop some problematic and useless columns that I will not use in my analysis.
+## 'Problematic' since they have null values.
+
+## The dropped columns are: LOCATION, SECONDARY TYPE, ADDRESS, HOUSE NUMBER, INTERNAL, ZIP CODE, PHONE, FAX, EMAIL ADDRESS, WEBSITE, AREA, LAST EDIT, IDENTIFICATION CODE.
+## These columns provide useless information, since they concern only the single residential facility, and are linked to contact information. 
+## The columns I am interested in are those which provide me information about the presence or not of descriptive characteristics of the touristic residences
+
+## I also drop the following columns that, even if they provide information about descriptive characteristics, are not relevant for my purposes:
+## INDOOR SWIMMING POOL, CONFERENCE ROOM, SOLARIUM, OUTSKIRTS, HILLS
+
+st.header('Lets Clean up the Dataset!')
+
+st.write('Since, as I can see from information of DF, there are some problematic columns,')
+st.write('I create a copy of the original dataframe in order to drop these that I will not use in my analysis.')
+st.write('**_Problematic_** since they have unfixable null values.')
+
+st.write('The dropped columns are: LOCATION, SECONDARY TYPE, ADDRESS, HOUSE NUMBER, INTERNAL, ZIP CODE, PHONE, FAX, EMAIL ADDRESS, WEBSITE, AREA, LAST EDIT, IDENTIFICATION CODE.')
+st.write('These columns provide useless information, since they concern only the single residential facility, and are linked to contact information. ')
+
+st.write('I also drop the following columns that, even if they provide information about descriptive characteristics, are not relevant for my purposes: INDOOR SWIMMING POOL, CONFERENCE ROOM, SOLARIUM, OUTSKIRTS, HILLS')
+
+tourism_df = tourism_structures_df.copy()
+
+tourism_df = tourism_df.drop(tourism_df.columns[[2,4,6,7,8,9,10,11,12,13,14,16,19,23,35,36,42,43]],axis=1)
+
+st.write('__There we go with the info of the Cleaned DF__')
+
+code_cleaned_df = '''
+RangeIndex: 8504 entries, 0 to 8503
+Data columns (total 27 columns):
+ #   Column                Non-Null Count  Dtype 
+---  ------                --------------  ----- 
+ 0   PROVINCIA             8504 non-null   object
+ 1   COMUNE                8504 non-null   object
+ 2   TIPOLOGIA             8504 non-null   object
+ 3   DENOMINAZIONE         8504 non-null   object
+ 4   PISCINA               8504 non-null   int64 
+ 5   RISTORANTE            8504 non-null   int64 
+ 6   PARCHEGGIO            8504 non-null   int64 
+ 7   ARIA CONDIZIONATA     8504 non-null   int64 
+ 8   GIOCHI BIMBI          8504 non-null   int64 
+ 9   SAUNA                 8504 non-null   int64 
+ 10  FITNESS               8504 non-null   int64 
+ 11  ANIMALI AMMESSI       8504 non-null   int64 
+ 12  CENTRO STORICO        8504 non-null   int64 
+ 13  ZONA FIERA            8504 non-null   int64 
+ 14  LAGO                  8504 non-null   int64 
+ 15  AEROPORTO             8504 non-null   int64 
+ 16  AUTOSTRADA            8504 non-null   int64 
+ 17  IMPIANTI RISALITA     8504 non-null   int64 
+ 18  STAZIONE FS           8504 non-null   int64 
+ 19  MARE                  8504 non-null   int64 
+ 20  TERMALE               8504 non-null   int64 
+ 21  INGLESE               8504 non-null   int64 
+ 22  FRANCESE              8504 non-null   int64 
+ 23  TEDESCO               8504 non-null   int64 
+ 24  SPAGNOLO              8504 non-null   int64 
+ 25  CHIUSURA TEMPORANEA   8504 non-null   int64 
+ 26  CLASSIFICAZIONE       7337 non-null   object
+dtypes: int64(22), object(5)'''
+
+st.code(code_cleaned_df)
 
 
 

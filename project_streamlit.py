@@ -1,6 +1,10 @@
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
+from sklearn import preprocessing
+import seaborn as sb
+import numpy as np
+from sklearn import processing
 
 tourism_structures_df = pd.read_csv('https://www.veneto.eu/static/opendata/dove-alloggiare.csv')
 
@@ -470,8 +474,6 @@ if st.sidebar.checkbox("EDA"):
     st.write('__TOTAL PER PROVINCIA__')
 
     st.dataframe(tourism_clear_class_groupby_sum.T)
-import streamlit as st
-import matplotlib.pyplot as plt
 
 provincie = [
     'BELLUNO',
@@ -491,9 +493,6 @@ provincie = [
 ## easy access to outdoor spaces for exercise and relief, and possibly even on-site pet services such as grooming or boarding.
 # ## animal friendly pie charts
 
-from sklearn import preprocessing
-import seaborn as sb
-import numpy as np
 
 ## 1 normalizing the number of animal-friendly tr
 
@@ -983,11 +982,7 @@ plt.suptitle("Touristic Residences Speak All Languages in Veneto", fontsize=20)
 
 if st.sidebar.checkbox("PLOTS"):
 
-    st.header('PLOTS')
-
-    import streamlit as st
-    import matplotlib.pyplot as plt
-    
+    st.header('PLOTS')  
     st.write('In this section you will find PLOTS refering to the analysis of the TR characteristics.')
     st.write('Firstly, you can see the full analysis of TR per Provincia in the two plots below.')
     st.write('The former is a bar chart with the information of the number of TR in the chosen Provincia with the particular characteristic.')
@@ -1155,7 +1150,6 @@ if st.sidebar.checkbox("PLOTS"):
     st.subheader('Portion of TR Speaking All Languages in Veneto')
     st.write(fig12)
     
-    import streamlit as st
     import folium
     from IPython.core.display import display, HTML
 

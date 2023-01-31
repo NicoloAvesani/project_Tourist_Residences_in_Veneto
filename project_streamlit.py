@@ -472,7 +472,7 @@ provincie = [
 
 city = st.selectbox("What Provincia do you want to analyze?", provincie)
 
-plt.figure(figsize=(30,10))
+fig = plt.figure(figsize=(30,10))
 
 if city == 'BELLUNO':
     st.title('Informations of TR in Belluno')
@@ -480,9 +480,15 @@ if city == 'BELLUNO':
     st.text('Total',city_len[0], str(city_len[0]), ha='center', weight='bold')
 
 elif city == 'PADOVA':
-    st.title('Informations of TR in Padova')
-    st.bar_chart(padova_descriptive)
-    st.text('Total',city_len[1], str(city_len[1]), ha='center', weight='bold')
+    fig.suptitle('Informations of TR in Padova', fontsize= 20)
+    plt.bar('Total', city_len[1])
+    plt.text('Total',city_len[1], str(city_len[1]), ha='center', weight='bold')
+    for i in range(len(padova_descriptive)):
+      plt.bar(padova_descriptive.index[i], padova_descriptive[i])
+      plt.xticks(rotation=45)
+      number = round((padova_descriptive[i]/padova_tr)*100,1)
+      plt.text(padova_descriptive.index[i], padova_descriptive[i], str(number)+'%', ha='center', weight='bold')
+    st.bar_chart(fig)
 
 elif city == 'TREVISO':
     st.title('Informations of TR in Treviso')

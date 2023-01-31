@@ -478,6 +478,10 @@ city = st.selectbox("What Provincia do you want to analyze?", provincie)
 plt.figure(figsize=(30,10))
 
 if city == 'BELLUNO':
+
+    st.title('Informations of TR in Belluno(%)')
+    st.bar_chart(belluno_descriptive)
+   
     plt.title('Informations of TR in Belluno', fontsize= 20)
     plt.bar('Total', city_len[0])
     plt.text('Total',city_len[0], str(city_len[0]), ha='center', weight='bold')
@@ -490,6 +494,10 @@ if city == 'BELLUNO':
   
 
 elif city == 'PADOVA':
+
+    st.title('Informations of TR in Padova(%)')
+    st.bar_chart(padova_descriptive)
+
     plt.title('Informations of TR in Padova', fontsize= 20)
     plt.bar('Total', city_len[1])
     plt.text('Total',city_len[1], str(city_len[1]), ha='center', weight='bold')
@@ -502,6 +510,10 @@ elif city == 'PADOVA':
   
 
 elif city == 'TREVISO':
+
+    st.title('Informations of TR in Treviso(%)')
+    st.bar_chart(treviso_descriptive)
+
     plt.title('Informations of TR in Treviso', fontsize= 20)
     plt.bar('Total', city_len[2])
     plt.text('Total',city_len[2], str(city_len[2]), ha='center', weight='bold')
@@ -514,6 +526,10 @@ elif city == 'TREVISO':
   
     
 elif city == 'ROVIGO':
+
+    st.title('Informations of TR in Rovigo(%)')
+    st.bar_chart(rovigo_descriptive)
+
     plt.title('Informations of TR in Rovigo', fontsize= 20)
     plt.bar('Total', city_len[3])
     plt.text('Total',city_len[3], str(city_len[3]), ha='center', weight='bold')
@@ -526,6 +542,10 @@ elif city == 'ROVIGO':
     
 
 elif city == 'VENEZIA':
+
+    st.title('Informations of TR in Venezia(%)')
+    st.bar_chart(venezia_descriptive)
+
     plt.title('Informations of TR in Venezia', fontsize= 20)
     plt.bar('Total', city_len[4])
     plt.text('Total',city_len[4], str(city_len[4]), ha='center', weight='bold')
@@ -538,7 +558,11 @@ elif city == 'VENEZIA':
     
 
 elif city == 'VERONA':
-    plt.title('Informations of TR in Verona', fontsize= 20)
+
+    st.title('Informations of TR in Verona')
+    st.bar_chart(verona_descriptive)
+
+    plt.title('Informations of TR in Verona(%)', fontsize= 20)
     plt.bar('Total', city_len[5])
     plt.text('Total',city_len[5], str(city_len[5]), ha='center', weight='bold')
     for i in range(len(verona_descriptive)):
@@ -550,6 +574,10 @@ elif city == 'VERONA':
    
 
 elif city == 'VICENZA':
+
+    st.title('Informations of TR in Vicenza(%)')
+    st.bar_chart(vicenza_descriptive)
+
     plt.title('Informations of TR in Vicenza', fontsize= 20)
     plt.bar('Total', city_len[6])
     plt.text('Total',city_len[6], str(city_len[6]), ha='center', weight='bold')
@@ -565,11 +593,7 @@ else:
     print('not found')
 
 
-st.header('Lets analyze some characteristics of TR')
-st.header('Animal Friendly TR')
-
-st.write('Definition of Animal Friendly:')
-st.write('Animal friendly touristic residences are accommodations that are: designed and managed to be welcoming and accommodating to both human guests and their animal companions. This may include features such as designated pet-friendly rooms or areas, easy access to outdoor spaces for exercise and relief, and possibly even on-site pet services such as grooming or boarding.')
+st.header('PLOTS')
 
 ## ANIMAL FRIENDLY
 ## Definition of Animal Friendly:
@@ -581,8 +605,6 @@ st.write('Animal friendly touristic residences are accommodations that are: desi
 ## animal friendly pie charts
 
 from sklearn import preprocessing
-import numpy as np
-import seaborn as sb
 
 ## 1 normalizing the number of animal-friendly tr
 
@@ -605,8 +627,8 @@ palette = sb.color_palette("pastel")
 
 donut_circle = plt.Circle( (0,0), 0.45, color = 'white')
 
-data_1 = (normalized_arr_1.reshape(7,1))
-data_2 = (normalized_arr_2.reshape(7,1))
+data_1 = (normalized_arr_1.T).flatter()
+data_2 = (normalized_arr_2.T).flatter()
 
 labels = provincie
 
@@ -625,7 +647,5 @@ fig.suptitle("Pet-Friendly TR in Veneto", fontsize=30)
 plt.legend(labels, title='Provincie')
 plt.axis('equal')
 
-st.pyplot(plt.gcf())
-
-
+st.write(fig)
 

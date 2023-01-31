@@ -605,6 +605,8 @@ st.header('PLOTS')
 ## animal friendly pie charts
 
 from sklearn import preprocessing
+import seaborn as sb
+import numpy as np
 
 ## 1 normalizing the number of animal-friendly tr
 
@@ -627,8 +629,8 @@ palette = sb.color_palette("pastel")
 
 donut_circle = plt.Circle( (0,0), 0.45, color = 'white')
 
-data_1 = (normalized_arr_1.T).flatter()
-data_2 = (normalized_arr_2.T).flatter()
+data_1 = (normalized_arr_1.T).flatten()
+data_2 = (normalized_arr_2.T).flatten()
 
 labels = provincie
 

@@ -396,7 +396,8 @@ vicenza_descriptive = tourism_clear_class_groupby_sum.T['VICENZA']
 city_list = [belluno_descriptive, padova_descriptive, treviso_descriptive, rovigo_descriptive, venezia_descriptive, verona_descriptive, vicenza_descriptive]
 
 st.title('Touristic Residences in Veneto :lion_face:')
-st.subtitle('Nicolò Avesani VR490189, Final Project')
+st.subheader('Nicolò Avesani VR490189, Final Project')
+st.sidebar.write("What do you want to see?")
 
 if st.sidebar.checkbox("EDA"):
 
@@ -470,11 +471,6 @@ if st.sidebar.checkbox("EDA"):
 
     st.dataframe(tourism_clear_class_groupby_sum.T)
 
-
-
-
-
-
 import streamlit as st
 import matplotlib.pyplot as plt
 
@@ -488,138 +484,13 @@ provincie = [
     'VICENZA'
 ]
 
-city = st.selectbox("What Provincia do you want to analyze?", provincie)
-
-plt.figure(figsize=(30,10))
-
-if city == 'BELLUNO':
-
-    st.title('Informations of TR in Belluno(%)')
-    st.bar_chart(belluno_descriptive)
-   
-    plt.title('Informations of TR in Belluno', fontsize= 20)
-    plt.bar('Total', city_len[0])
-    plt.text('Total',city_len[0], str(city_len[0]), ha='center', weight='bold')
-    for i in range(len(belluno_descriptive)):
-      plt.bar(belluno_descriptive.index[i], belluno_descriptive[i])
-      plt.xticks(rotation=45)
-      number = round((belluno_descriptive[i]/belluno_tr)*100,1)
-      plt.text(belluno_descriptive.index[i], belluno_descriptive[i], str(number)+'%', ha='center', weight='bold')
-    st.pyplot(plt.gcf())
-  
-
-elif city == 'PADOVA':
-
-    st.title('Informations of TR in Padova(%)')
-    st.bar_chart(padova_descriptive)
-
-    plt.title('Informations of TR in Padova', fontsize= 20)
-    plt.bar('Total', city_len[1])
-    plt.text('Total',city_len[1], str(city_len[1]), ha='center', weight='bold')
-    for i in range(len(padova_descriptive)):
-      plt.bar(padova_descriptive.index[i], padova_descriptive[i])
-      plt.xticks(rotation=45)
-      number = round((padova_descriptive[i]/padova_tr)*100,1)
-      plt.text(padova_descriptive.index[i], padova_descriptive[i], str(number)+'%', ha='center', weight='bold')
-    st.pyplot(plt.gcf())
-  
-
-elif city == 'TREVISO':
-
-    st.title('Informations of TR in Treviso(%)')
-    st.bar_chart(treviso_descriptive)
-
-    plt.title('Informations of TR in Treviso', fontsize= 20)
-    plt.bar('Total', city_len[2])
-    plt.text('Total',city_len[2], str(city_len[2]), ha='center', weight='bold')
-    for i in range(len(treviso_descriptive)):
-      plt.bar(treviso_descriptive.index[i], treviso_descriptive[i])
-      plt.xticks(rotation=45)
-      number = round((treviso_descriptive[i]/treviso_tr)*100,1)
-      plt.text(treviso_descriptive.index[i], treviso_descriptive[i], str(number)+'%', ha='center', weight='bold')
-    st.pyplot(plt.gcf())
-  
-    
-elif city == 'ROVIGO':
-
-    st.title('Informations of TR in Rovigo(%)')
-    st.bar_chart(rovigo_descriptive)
-
-    plt.title('Informations of TR in Rovigo', fontsize= 20)
-    plt.bar('Total', city_len[3])
-    plt.text('Total',city_len[3], str(city_len[3]), ha='center', weight='bold')
-    for i in range(len(rovigo_descriptive)):
-      plt.bar(rovigo_descriptive.index[i], rovigo_descriptive[i])
-      plt.xticks(rotation=45)
-      number = round((rovigo_descriptive[i]/rovigo_tr)*100,1)
-      plt.text(rovigo_descriptive.index[i], rovigo_descriptive[i], str(number)+'%', ha='center', weight='bold')
-    st.pyplot(plt.gcf())
-    
-
-elif city == 'VENEZIA':
-
-    st.title('Informations of TR in Venezia(%)')
-    st.bar_chart(venezia_descriptive)
-
-    plt.title('Informations of TR in Venezia', fontsize= 20)
-    plt.bar('Total', city_len[4])
-    plt.text('Total',city_len[4], str(city_len[4]), ha='center', weight='bold')
-    for i in range(len(venezia_descriptive)):
-      plt.bar(venezia_descriptive.index[i], venezia_descriptive[i])
-      plt.xticks(rotation=45)
-      number = round((venezia_descriptive[i]/venezia_tr)*100,1)
-      plt.text(venezia_descriptive.index[i], venezia_descriptive[i], str(number)+'%', ha='center', weight='bold')
-    st.pyplot(plt.gcf())
-    
-
-elif city == 'VERONA':
-
-    st.title('Informations of TR in Verona')
-    st.bar_chart(verona_descriptive)
-
-    plt.title('Informations of TR in Verona(%)', fontsize= 20)
-    plt.bar('Total', city_len[5])
-    plt.text('Total',city_len[5], str(city_len[5]), ha='center', weight='bold')
-    for i in range(len(verona_descriptive)):
-      plt.bar(verona_descriptive.index[i], verona_descriptive[i])
-      plt.xticks(rotation=45)
-      number = round((verona_descriptive[i]/verona_tr)*100,1)
-      plt.text(verona_descriptive.index[i], verona_descriptive[i], str(number)+'%', ha='center', weight='bold')
-    st.pyplot(plt.gcf())
-   
-
-elif city == 'VICENZA':
-
-    st.title('Informations of TR in Vicenza(%)')
-    st.bar_chart(vicenza_descriptive)
-
-    plt.title('Informations of TR in Vicenza', fontsize= 20)
-    plt.bar('Total', city_len[6])
-    plt.text('Total',city_len[6], str(city_len[6]), ha='center', weight='bold')
-    for i in range(len(vicenza_descriptive)):
-      plt.bar(vicenza_descriptive.index[i], vicenza_descriptive[i])
-      plt.xticks(rotation=45)
-      number = round((vicenza_descriptive[i]/vicenza_tr)*100,1)
-      plt.text(vicenza_descriptive.index[i], vicenza_descriptive[i], str(number)+'%', ha='center', weight='bold')
-    st.pyplot(plt.gcf())
-    
-  
-else:
-    print('not found')
-
-
-st.header('PLOTS')
-
 ## ANIMAL FRIENDLY
 ## Definition of Animal Friendly:
 ## Animal friendly touristic residences are accommodations that are:
 ## designed and managed to be welcoming and accommodating to both human guests and their animal companions.
 ## This may include features such as designated pet-friendly rooms or areas, 
 ## easy access to outdoor spaces for exercise and relief, and possibly even on-site pet services such as grooming or boarding.
-
-st.header('Pet-Friendly TR in Veneto')
-st.write('Definition of Animal Friendly --> Animal friendly touristic residences are accommodations that are: designed and managed to be welcoming and accommodating to both human guests and their animal companions. This may include features such as designated pet-friendly rooms or areas, easy access to outdoor spaces for exercise and relief, and possibly even on-site pet services such as grooming or boarding.')
-## animal friendly pie charts
+# ## animal friendly pie charts
 
 from sklearn import preprocessing
 import seaborn as sb
@@ -641,7 +512,7 @@ normalized_arr_1 = preprocessing.normalize(af_array_1[np.newaxis])
 af_array_2 = np.array([belluno_af_tr, padova_af_tr, treviso_af_tr, rovigo_af_tr, venezia_af_tr, verona_af_tr, vicenza_af_tr])
 normalized_arr_2 = preprocessing.normalize(af_array_2[np.newaxis])
 
-fig, axs = plt.subplots(nrows = 1, ncols = 2, figsize = (20, 10), constrained_layout = True)
+fig1, axs = plt.subplots(nrows = 1, ncols = 2, figsize = (20, 10), constrained_layout = True)
 palette = sb.color_palette("pastel")
 
 donut_circle = plt.Circle( (0,0), 0.45, color = 'white')
@@ -661,16 +532,14 @@ axs[1].pie(data_2, autopct='%.2f%%', colors =palette)
 axs[1].add_artist(donut_circle)
 axs[1].set_title("Not Normalized Proportion of Pet-Friendly TR", fontweight='bold')
 
-fig.suptitle("Pet-Friendly TR in Veneto", fontsize=30)
+fig1.suptitle("Pet-Friendly TR in Veneto", fontsize=30)
 
 plt.legend(labels, title='Provincie')
 plt.axis('equal')
 
-st.write(fig)
-
 animal_friendly_list=[belluno_af_tr, padova_af_tr, treviso_af_tr, rovigo_af_tr, venezia_af_tr, verona_af_tr, vicenza_af_tr]
 
-fig, axs = plt.subplots(1, 2, figsize=(30, 10))
+fig2, axs = plt.subplots(1, 2, figsize=(30, 10))
 
 plt.suptitle('How many Pet-Friendly TR are in Veneto?', fontsize=25.9)
 
@@ -726,8 +595,6 @@ axs[1].legend(by_label.values(), by_label.keys())
 axs[1].set_xticks(X)
 axs[1].set_xticklabels(provincie)
 
-st.write(fig)
-
 ## How many touristic residences are pet friendly in Veneto?
 
 sum_pf = np.sum(animal_friendly_list)
@@ -742,20 +609,13 @@ ratio_af_tr = sum_pf/total_tr
 labels = ['Pet Friendly', 'Not Pet Friendly']
 sizes = [ratio_af_tr, 1 - ratio_af_tr]
 
-fig1, ax1 = plt.subplots(figsize=(10,10))
+fig3, ax1 = plt.subplots(figsize=(10,10))
 ax1.pie(sizes, labels=labels, autopct='%1.1f%%',
         shadow=True, startangle=90, wedgeprops = { 'linewidth' : 3, 'edgecolor' : 'white' }, colors=palette)
 ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle
 
 plt.suptitle("Pet Friendly Touristic Residences in Veneto", fontsize=20)
 
-st.write(fig1)
-
-
-st.header('TR with Pool in Veneto')
-st.write('Definition of Pool: Touristic residences with pool refers to accomodation that have a swimming pool on the property. These types of properties are popular among tourists and vacationers who are looking for a place to stay that offers the convenience and luxury of having a pool to swim in during their stay. ')
-
-st.subheader('Pie Charts')
 belluno_pool_tr = belluno_descriptive.loc['PISCINA']
 padova_pool_tr = padova_descriptive.loc['PISCINA']
 treviso_pool_tr = treviso_descriptive.loc['PISCINA']
@@ -773,7 +633,7 @@ pool_array_2 = np.array([belluno_pool_tr, padova_pool_tr, treviso_pool_tr, rovig
 normalized_arr_2 = preprocessing.normalize(pool_array_2[np.newaxis])
 
 ## create pie charts
-fig, axs = plt.subplots(nrows = 1, ncols = 2, figsize = (20, 10), constrained_layout = True)
+fig4, axs = plt.subplots(nrows = 1, ncols = 2, figsize = (20, 10), constrained_layout = True)
 palette = sb.color_palette("pastel")
 
 
@@ -798,19 +658,14 @@ axs[1].pie(data_2, autopct='%.2f%%', colors =palette)
 axs[1].add_artist(donut_circle)
 axs[1].set_title("Not Normalized Proportion of TR with Pool", fontweight='bold')
 
-fig.suptitle(" TR with Pool in Veneto", fontsize=30)
+fig4.suptitle(" TR with Pool in Veneto", fontsize=30)
 
 plt.legend(labels, title='Provincie')
 plt.axis('equal')
 
-st.write(fig)
-
-st.subheader('Bar Charts')
-
-
 pool_list=[belluno_pool_tr, padova_pool_tr, treviso_pool_tr, rovigo_pool_tr, venezia_pool_tr, verona_pool_tr, vicenza_pool_tr]
 
-fig, axs = plt.subplots(1, 2, figsize=(30, 10))
+fig5, axs = plt.subplots(1, 2, figsize=(30, 10))
 
 plt.suptitle('How many TR have Pool in Veneto?', fontsize=25.9)
 
@@ -857,10 +712,6 @@ axs[1].legend(by_label.values(), by_label.keys())
 axs[1].set_xticks(X)
 axs[1].set_xticklabels(provincie)
 
-st.write(fig)
-
-st.subheader('Portion of TR with Pool')
-
 ## How many touristic residences have Pool in Veneto?
 
 sum_pool = np.sum(pool_list)
@@ -875,14 +726,164 @@ ratio_pool_tr = sum_pool/total_tr
 labels = ['With Pool', 'Without Pool']
 sizes = [ratio_pool_tr, 1 - ratio_pool_tr]
 
-fig1, ax1 = plt.subplots(figsize=(10,8))
+fig6, ax1 = plt.subplots(figsize=(10,8))
 ax1.pie(sizes, labels=labels, autopct='%1.1f%%',
         shadow=True, startangle=90, wedgeprops = { 'linewidth' : 3, 'edgecolor' : 'white' }, colors=palette)
 ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle
 
 plt.suptitle("Touristic Residences with Pool in Veneto", fontsize=20)
 
-st.write(fig1)
+
+if st.sidebar.checkbox("PLOTS"):
+
+    st.header('PLOTS')
+
+    import streamlit as st
+    import matplotlib.pyplot as plt
+    
+    st.write('In this section you will find PLOTS refering to the analysis of the TR characteristics.')
+    st.write('Firstly, you can see the full analysis of TR per Provincia in the two plots below.')
+    st.write('The former is a bar chart with the information of the number of TR in the chosen Provincia with the particular characteristic.')
+    st.write('The latter refers to the percentage of TR with the presence of the particular characteristic.')
+    
+    city = st.selectbox("__What Provincia do you want to analyze?__", provincie)
+
+    plt.figure(figsize=(30,10))
+
+    if city == 'BELLUNO':
+
+        st.title('How many TR in Belluno have...(numbers)?')    
+        st.bar_chart(belluno_descriptive)
+   
+        st.title('How many TR in Belluno have...(%)?')
+        plt.title('Informations of TR in Belluno', fontsize= 20)
+        plt.bar('Total', city_len[0])
+
+        for i in range(len(belluno_descriptive)):
+            plt.bar(belluno_descriptive.index[i], belluno_descriptive[i])
+            plt.xticks(rotation=45)
+            number = round((belluno_descriptive[i]/belluno_tr)*100,1)
+            plt.text(belluno_descriptive.index[i], belluno_descriptive[i], str(number)+'%', ha='center', weight='bold')
+        st.pyplot(plt.gcf())
+  
+
+    elif city == 'PADOVA':
+
+        st.title('How many TR in Padova have...(numbers)?')
+        st.bar_chart(padova_descriptive)
+
+        st.title('How many TR in Venezia have...(%)?')
+        plt.title('Informations of TR in Padova', fontsize= 20)
+        plt.bar('Total', city_len[1])
+        for i in range(len(padova_descriptive)):
+            plt.bar(padova_descriptive.index[i], padova_descriptive[i])
+            plt.xticks(rotation=45)
+            number = round((padova_descriptive[i]/padova_tr)*100,1)
+            plt.text(padova_descriptive.index[i], padova_descriptive[i], str(number)+'%', ha='center', weight='bold')
+        st.pyplot(plt.gcf())
+  
+
+    elif city == 'TREVISO':
+
+        st.title('How many TR in Treviso have...(numbers)?')
+        st.bar_chart(treviso_descriptive)
+        st.title('How many TR in Venezia have...(%)?')
+        plt.title('Informations of TR in Treviso', fontsize= 20)
+        plt.bar('Total', city_len[2])
+        for i in range(len(treviso_descriptive)):
+            plt.bar(treviso_descriptive.index[i], treviso_descriptive[i])
+            plt.xticks(rotation=45)
+            number = round((treviso_descriptive[i]/treviso_tr)*100,1)
+            plt.text(treviso_descriptive.index[i], treviso_descriptive[i], str(number)+'%', ha='center', weight='bold')
+        st.pyplot(plt.gcf())
+  
+    
+    elif city == 'ROVIGO':
+        st.title('How many TR in Rovigo have...(numbers)?')
+        st.bar_chart(rovigo_descriptive)
+        st.title('How many TR in Rovigo have...(%)?')
+        plt.title('Informations of TR in Rovigo', fontsize= 20)
+        plt.bar('Total', city_len[3])
+        
+        for i in range(len(rovigo_descriptive)):
+            plt.bar(rovigo_descriptive.index[i], rovigo_descriptive[i])
+            plt.xticks(rotation=45)
+            number = round((rovigo_descriptive[i]/rovigo_tr)*100,1)
+            plt.text(rovigo_descriptive.index[i], rovigo_descriptive[i], str(number)+'%', ha='center', weight='bold')
+        st.pyplot(plt.gcf())
+    
+
+    elif city == 'VENEZIA':
+
+        st.title('How many TR in Venezia have...(numbers)?')
+        st.bar_chart(venezia_descriptive)
+        st.title('How many TR in Venezia have...(%)?')
+        plt.title('Informations of TR in Venezia(%)', fontsize= 20)
+        plt.bar('Total', city_len[4])
+        for i in range(len(venezia_descriptive)):
+            plt.bar(venezia_descriptive.index[i], venezia_descriptive[i])
+            plt.xticks(rotation=45)
+            number = round((venezia_descriptive[i]/venezia_tr)*100,1)
+            plt.text(venezia_descriptive.index[i], venezia_descriptive[i], str(number)+'%', ha='center', weight='bold')
+        st.pyplot(plt.gcf())
+    
+
+    elif city == 'VERONA':
+        
+        st.title('How many TR in Verona have...(numbers)?')
+        st.bar_chart(verona_descriptive)
+
+        st.title('How many TR in Verona have...(%)?')
+        
+        plt.title('Informations of TR in Verona(%)', fontsize= 20)
+        plt.bar('Total', city_len[5])
+        for i in range(len(verona_descriptive)):
+            plt.bar(verona_descriptive.index[i], verona_descriptive[i])
+            plt.xticks(rotation=45)
+            number = round((verona_descriptive[i]/verona_tr)*100,1)
+            plt.text(verona_descriptive.index[i], verona_descriptive[i], str(number)+'%', ha='center', weight='bold')
+        st.pyplot(plt.gcf())
+   
+
+    elif city == 'VICENZA':
+        st.title('How many TR in Vicenza have...(numbers)?')
+        st.bar_chart(vicenza_descriptive)
+        st.title('How many TR in Vicenza have...(%)?')
+        plt.title('Informations of TR in Vicenza', fontsize= 20)
+        plt.bar('Total', city_len[6])
+        for i in range(len(vicenza_descriptive)):
+             plt.bar(vicenza_descriptive.index[i], vicenza_descriptive[i])
+             plt.xticks(rotation=45)
+             number = round((vicenza_descriptive[i]/vicenza_tr)*100,1)
+             plt.text(vicenza_descriptive.index[i], vicenza_descriptive[i], str(number)+'%', ha='center', weight='bold')
+        st.pyplot(plt.gcf())
+    
+
+
+    st.header('Pet-Friendly TR in Veneto')
+    st.write('Definition of Animal Friendly --> Animal friendly touristic residences are accommodations that are: designed and managed to be welcoming and accommodating to both human guests and their animal companions. This may include features such as designated pet-friendly rooms or areas, easy access to outdoor spaces for exercise and relief, and possibly even on-site pet services such as grooming or boarding.')
+    st.subheader('Pie Charts')
+    st.write(fig1)
+
+    st.subheader('Bar Charts')
+    st.write(fig2)
+
+    st.subheader('Portion of Pet-Frientdly TR in Veneto')
+    st.write(fig3)
+
+    st.header('TR with Pool in Veneto')
+    st.write('Definition of Pool: Touristic residences with pool refers to accomodation that have a swimming pool on the property. These types of properties are popular among tourists and vacationers who are looking for a place to stay that offers the convenience and luxury of having a pool to swim in during their stay. ')
+
+    st.subheader('Pie Charts')   
+    st.write(fig4)
+
+    st.subheader('Bar Charts')
+    st.write(fig5)
+
+    st.subheader('Portion of TR wirh Pool in Veneto')
+    st.write(fig6)
+
+
 
 
 

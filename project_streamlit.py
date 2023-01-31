@@ -565,5 +565,67 @@ else:
     print('not found')
 
 
+st.header('Lets analyze some characteristics of TR')
+st.header('Animal Friendly TR')
+
+st.write('Definition of Animal Friendly:')
+st.write('Animal friendly touristic residences are accommodations that are: designed and managed to be welcoming and accommodating to both human guests and their animal companions. This may include features such as designated pet-friendly rooms or areas, easy access to outdoor spaces for exercise and relief, and possibly even on-site pet services such as grooming or boarding.')
+
+## ANIMAL FRIENDLY
+## Definition of Animal Friendly:
+## Animal friendly touristic residences are accommodations that are:
+## designed and managed to be welcoming and accommodating to both human guests and their animal companions.
+## This may include features such as designated pet-friendly rooms or areas, 
+## easy access to outdoor spaces for exercise and relief, and possibly even on-site pet services such as grooming or boarding.
+
+## animal friendly pie charts
+
+from sklearn import preprocessing
+import numpy as np
+import seaborn as sb
+
+## 1 normalizing the number of animal-friendly tr
+
+belluno_af_tr = belluno_descriptive.loc['ANIMALI AMMESSI']
+padova_af_tr = padova_descriptive.loc['ANIMALI AMMESSI']
+treviso_af_tr = treviso_descriptive.loc['ANIMALI AMMESSI']
+rovigo_af_tr = rovigo_descriptive.loc['ANIMALI AMMESSI']
+venezia_af_tr = venezia_descriptive.loc['ANIMALI AMMESSI']
+verona_af_tr = verona_descriptive.loc['ANIMALI AMMESSI']
+vicenza_af_tr = vicenza_descriptive.loc['ANIMALI AMMESSI']
+
+af_array_1 = np.array([belluno_af_tr/belluno_tr, padova_af_tr/padova_tr, treviso_af_tr/treviso_tr, rovigo_af_tr/rovigo_tr, venezia_af_tr/venezia_tr, verona_af_tr/verona_tr, vicenza_af_tr/vicenza_tr])
+normalized_arr_1 = preprocessing.normalize(af_array_1[np.newaxis])
+
+af_array_2 = np.array([belluno_af_tr, padova_af_tr, treviso_af_tr, rovigo_af_tr, venezia_af_tr, verona_af_tr, vicenza_af_tr])
+normalized_arr_2 = preprocessing.normalize(af_array_2[np.newaxis])
+
+fig, axs = plt.subplots(nrows = 1, ncols = 2, figsize = (20, 10), constrained_layout = True)
+palette = sb.color_palette("pastel")
+
+donut_circle = plt.Circle( (0,0), 0.45, color = 'white')
+
+data_1 = (normalized_arr_1.reshape(7,1))
+data_2 = (normalized_arr_2.reshape(7,1))
+
+labels = provincie
+
+axs[0].pie(data_1, autopct='%.2f%%', labels =labels, colors =palette)
+axs[0].add_artist(donut_circle)
+axs[0].set_title("Normalized Proportion of Pet-Friendly TR", fontweight='bold')
+
+donut_circle = plt.Circle( (0,0), 0.45, color = 'white')
+
+axs[1].pie(data_2, autopct='%.2f%%', colors =palette)
+axs[1].add_artist(donut_circle)
+axs[1].set_title("Not Normalized Proportion of Pet-Friendly TR", fontweight='bold')
+
+fig.suptitle("Pet-Friendly TR in Veneto", fontsize=30)
+
+plt.legend(labels, title='Provincie')
+plt.axis('equal')
+
+st.pyplot(plt.gcf())
+
 
 

@@ -1548,7 +1548,7 @@ if st.sidebar.checkbox("CORRELATION AND HEATMAP"):
   st.write(fig16)
 
   st.write('The heatmap shows the correlation between two descriptive variables. The higher is the value of the correlation (the more near to 1 it is) the lighter is the color of the cell, and vice versa.')
-  st.write('In the next section I tried to build a linear regression model in order to study how the correlation changes as the classification of the tourist residence increases')
+  st.write('In the next section I try to build a linear regression model in order to study how the correlation changes as the classification of the tourist residence increases')
 
 
 ##  linear regression model

@@ -5,9 +5,7 @@ import seaborn as sb
 import numpy as np
 import sklearn
 from sklearn import preprocessing
-from sklearn.model_selection import train_test_split
-from sklearn import tree
-from sklearn import metrics
+from sklearn.linear_model import LinearRegression
 
 
 tourism_structures_df = pd.read_csv('https://www.veneto.eu/static/opendata/dove-alloggiare.csv')
@@ -1430,7 +1428,7 @@ if st.sidebar.checkbox("PLOTS"):
         st.pyplot(plt.gcf())
     
     st.title('TR Characteristic Analysis')
-    plot = st.selectbox('Choose the Characteristic Analyzed',('Pet-friendly TR','TR with Pool','TR speaking foreign language(s)','TR with Private Parking Spots','TR with Restaurant'))
+    plot = st.selectbox('__Choose the Variable to Analyze__',('Pet-friendly TR','TR with Pool','TR speaking foreign language(s)','TR with Private Parking Spots','TR with Restaurant'))
 
 
     if plot == 'Pet-friendly TR':
@@ -1558,16 +1556,50 @@ if st.sidebar.checkbox("CORRELATION AND HEATMAP"):
 
 if st.sidebar.checkbox("MODEL"):
 
+  st.title('Linear Regression Model')
+  st.write('I want to find out the impact that the different descriptive variables have on classification.')
+  st.write('How does the classification depend on the analyzed variables?')
+
+  language=[]
+  for i in range(len(tr_df)):
+    if (tr_df['INGLESE'][i] == 1) & (tr_df['TEDESCO'][i] == 1) & (tr_df['SPAGNOLO'][i] == 1) & (tr_df['FRANCESE'][i] == 1) :
+      language.append(1)
+    else:
+      language.append(0)
+
+  tr_df['LANGUAGES'] = language
+
+
+  y_under_3 = tr_df['UNDER 3']
+  y_over_3 = tr_df['G.E 3']
+  y_over_4 = tr_df['G.E. 4']
+  y_5 = tr_df['CLASS 5']
+  X = tr_df[['PISCINA',
+       'RISTORANTE', 'PARCHEGGIO', 'SAUNA', 'FITNESS', 'ANIMALI AMMESSI',
+       'INGLESE', 'LANGUAGES' ]]
+
+
+  choose_class = st.selectbox('__Choose the Classification__',('Under 3 Classification TR','Over 3 Classification TR','Over 4 Classification TR','5 Class TR'))
   
+  if choose_class == 'Under 3 Classification TR':
+
+    reg=LinearRegression().fit(X,y_under_3)
+
+  if choose_class == 'Over 3 Classification TR':
+
+    reg=LinearRegression().fit(X,y_over_3)
+
+  if choose_class == 'Over 4 Classification TR':
+
+    reg=LinearRegression().fit(X,y_over_4)
+
+  if choose_class == '5 Class TR':
+
+    reg=LinearRegression().fit(X,y_5)
   
-  
+  intercept_label = ['intercept']
+  coeff_df = pd.DataFrame([*intercept_label,*X.columns])
+  coeff_df.columns = ['Predictors']
+  coeff_df['Coefficients'] = [*[reg.intercept_], *reg.coef_]
 
-
-
-
-
-
-
-
-
-
+  st.write(coeff_df)

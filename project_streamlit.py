@@ -1542,9 +1542,12 @@ if st.sidebar.checkbox("CORRELATION AND HEATMAP"):
 
   st.header("Heatmap")
   st.write("Here is a heatmap visualization:")
-  st.heatmap(tr_corr, annot=True, cmap='viridis')  
+  fig16 = plt.figure(figsize=(20,12))
+  sb.heatmap(tr_corr, annot=True)
 
-  
+  st.write(fig16)
+
+
 
 
 

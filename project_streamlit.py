@@ -1539,14 +1539,14 @@ if st.sidebar.checkbox("CORRELATION AND HEATMAP"):
   st.header('Correlation')
   st.write('This is the Correlation DF:')
 
-  st.dataframe(tr_corr)
+  st.dataframe(tr_df.corr())
 
   ## heatmap 
 
   st.header("Heatmap")
   st.write("Here is a heatmap visualization:")
   fig16 = plt.figure(figsize=(20,12))
-  sb.heatmap(tr_corr, annot=True)
+  sb.heatmap(tr_df.corr(), annot=True)
 
   st.write(fig16)
 
@@ -1557,72 +1557,10 @@ if st.sidebar.checkbox("CORRELATION AND HEATMAP"):
 ##  linear regression model
 
 if st.sidebar.checkbox("MODEL"):
-  
-  tr_copy = tr_df.drop(columns=['PROVINCIA','COMUNE','TIPOLOGIA','DENOMINAZIONE','CLASSIFICAZIONE']).copy()
-  
-  choose_the_target = st.selectbox('Choose the target',('UNDER 3','Grater Equal 3','Grater Equal 4','Class 5'))
-  # Data preparation
-  
-  if choose_the_target == 'UNDER 3':
-    feature = tr_copy.drop(columns=['UNDER 3'])
-    target = tr_copy['UNDER 3']
-    
-
-  if choose_the_target == 'Grater Equal 3':
-
-    feature = tr_copy.drop(columns=['G.E 3'])
-    target = tr_copy['G.E 3']
-
-  if choose_the_target == 'Grater Equal 4':
-
-    feature = tr_copy.drop(columns=['G.E. 4'])
-    target = tr_copy['G.E. 4']
-
-  if choose_the_target == 'Class 5':
-
-    feature = tr_copy.drop(columns=['CLASS 5'])
-    target = tr_copy['CLASS 5']
 
   
   
-
-  X_train, X_test, y_train, y_test = train_test_split(feature , target, 
-                                                    shuffle = True, 
-                                                    test_size=0.2, 
-                                                    random_state=1)
-
-  # Evaluation function
-  def evaluate_model(model, x_test, y_test):
-      y_pred = model.predict(x_test)
-      acc = metrics.accuracy_score(y_test, y_pred)
-      prec = metrics.precision_score(y_test, y_pred)
-      rec = metrics.recall_score(y_test, y_pred)
-      f1 = metrics.f1_score(y_test, y_pred)
-      kappa = metrics.cohen_kappa_score(y_test, y_pred)
-      y_pred_proba = model.predict_proba(x_test)[::,1]
-      fpr, tpr, _ = metrics.roc_curve(y_test, y_pred_proba)
-      auc = metrics.roc_auc_score(y_test, y_pred_proba)
-      cm = metrics.confusion_matrix(y_test, y_pred)
-      return {'acc': acc, 'prec': prec, 'rec': rec, 'f1': f1, 'kappa': kappa, 
-              'fpr': fpr, 'tpr': tpr, 'auc': auc, 'cm': cm}
-
-  # Building Decision Tree model 
-  dtc = tree.DecisionTreeClassifier(random_state=0)
-  dtc.fit(X_train, y_train)
-
-  # Evaluate Model
-  dtc_eval = evaluate_model(dtc, X_test, y_test)
-
-  # Streamlit interface
-  st.title("Decision Tree Model")
-
-  st.write("Accuracy: ", dtc_eval['acc'])
-  st.write("Precision: ", dtc_eval['prec'])
-  st.write("Recall: ", dtc_eval['rec'])
-  st.write("F1-score: ", dtc_eval['f1'])
-  st.write("Kappa score: ", dtc_eval['kappa'])
-  st.write("AUC: ", dtc_eval['auc'])
-  st.write("Confusion Matrix: ", dtc_eval['cm'])
+  
 
 
 

@@ -577,8 +577,6 @@ tr_groupby_sum = tr_df.groupby(['PROVINCIA']).sum()
 
 
 
-
-
 if st.sidebar.checkbox("EDA"):
 
     st.title('Explore and Clean the Dataset')
@@ -1519,5 +1517,34 @@ if st.sidebar.checkbox("PLOTS"):
       st.write('How many TR have Restaurant?')
       st.write(fig6)
 
-if st.sidebar.checkbox("HEATMAP"):
+
+
+## Correlation and Heatmap
+
+## correlation df
+tr_corr = tr_groupby_mean.corr()
+
+
+
+
+if st.sidebar.checkbox("CORRELATION AND HEATMAP"):
+
+  st.title('CORRELATION AND HEATMAP')
+
+  st.write('In this section I show the correlation DF and the Heatmap')
+
+  st.header('Correlation')
+  st.write('This is the Correlation DF:')
+
+  st.dataframe(tr_corr)
+
+  ## heatmap 
+
+  st.header("Heatmap")
+  st.write("Here is a heatmap visualization:")
+  st.heatmap(tr_corr, annot=True, cmap='viridis')  
+
+  
+
+
 

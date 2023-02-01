@@ -1,5 +1,9 @@
-# NICOLO' AVESANI VR490189 
-# PROGRAMMING FINAL PROJECT 2022-2023
+
+![alt text](https://www.lavoroediritto.it/wp-content/uploads/2012/09/Regione-Veneto.jpg)
+
+
+NICOLO' AVESANI VR490189 
+PROGRAMMING FINAL PROJECT 2022-2023
 
 I'm Nicolò Avesani, Data Science student in Verona. 
 My project is focused on a dataset called 'Touristic Residences in Veneto'.

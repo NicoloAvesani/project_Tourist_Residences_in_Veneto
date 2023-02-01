@@ -1282,7 +1282,133 @@ ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle
 
 plt.suptitle("Tourist Residences Speak All Languages in Veneto", fontsize=20)
 
+## RESTAURANT
+## Definition of Restaurant:
+## Tourist residences with a restaurant refers to accomodations that have an on-site restaurant. 
+## These types of properties are popular among tourists and vacationers who are looking for a place to stay that offers the convenience of having a restaurant where they can enjoy meals during their stay.
+## The restaurant can be a shared space, or a private space that is only accessible to guests staying in the residence.
 
+
+belluno_rest_tr = belluno_descriptive.loc['RISTORANTE']
+padova_rest_tr = padova_descriptive.loc['RISTORANTE']
+treviso_rest_tr = treviso_descriptive.loc['RISTORANTE']
+rovigo_rest_tr = rovigo_descriptive.loc['RISTORANTE']
+venezia_rest_tr = venezia_descriptive.loc['RISTORANTE']
+verona_rest_tr = verona_descriptive.loc['RISTORANTE']
+vicenza_rest_tr = vicenza_descriptive.loc['RISTORANTE']
+
+## array with ratio of tr with restaurant and total tr by provincia
+rest_array_1 = np.array([belluno_rest_tr/belluno_tr, padova_rest_tr/padova_tr, treviso_rest_tr/treviso_tr, rovigo_rest_tr/rovigo_tr, venezia_rest_tr/venezia_tr, verona_rest_tr/verona_tr, vicenza_rest_tr/vicenza_tr])
+normalized_arr_1 = preprocessing.normalize(rest_array_1[np.newaxis])
+
+## array with number of tr with restaurant by provincia
+rest_array_2 = np.array([belluno_rest_tr, padova_rest_tr, treviso_rest_tr, rovigo_rest_tr, venezia_rest_tr, verona_rest_tr, vicenza_rest_tr])
+normalized_arr_2 = preprocessing.normalize(rest_array_2[np.newaxis])
+
+## create pie charts
+fig16, axs = plt.subplots(nrows = 1, ncols = 2, figsize = (20, 10), constrained_layout = True)
+palette = sb.color_palette("pastel")
+
+
+## normalizing tha array
+## In this way i will have an array with normalized values for the two data
+data_1 = (normalized_arr_1.T).flatten()
+data_2 = (normalized_arr_2.T).flatten()
+
+labels = province
+
+donut_circle = plt.Circle( (0,0), 0.45, color = 'white')
+
+## axs[0] --> this is the one in which I see the normalizet proportion of TR with Restaurant by provincia
+axs[0].pie(data_1, autopct='%.2f%%', labels =labels, colors =palette)
+axs[0].add_artist(donut_circle)
+axs[0].set_title("Normalized Proportion of TR with Restaurant ", fontweight='bold')
+
+donut_circle = plt.Circle( (0,0), 0.45, color = 'white')
+
+## axs[1] --> this is the axs in which I see the normalized proportion of TR with restaurant in Veneto (Total number of TR with Restaurant)
+axs[1].pie(data_2, autopct='%.2f%%', colors =palette)
+axs[1].add_artist(donut_circle)
+axs[1].set_title("Not Normalized Proportion of TR with Restaurant ", fontweight='bold')
+
+fig16.suptitle(" TR with Restaurant in Veneto", fontsize=30)
+
+plt.legend(labels, title='Province')
+plt.axis('equal')
+
+rest_list=[belluno_rest_tr, padova_rest_tr, treviso_rest_tr, rovigo_rest_tr, venezia_rest_tr, verona_rest_tr, vicenza_rest_tr]
+
+## Stacked Bar Chart
+
+fig17, axs = plt.subplots(1, 2, figsize=(30, 10))
+
+plt.suptitle('How many TR have Restaurant in Veneto?', fontsize=25.9)
+
+axs[0].set_title('Stacked Bar Chart', fontsize=20)
+axs[0].set_xlabel('Province')
+axs[0].set_ylabel('Number of Tourist Residences')
+
+for i in range(len(rest_list)):
+    axs[0].bar(province[i], city_len[i], color='grey', width = 0.5, label='Total TR')
+    axs[0].bar(province[i], rest_list[i], color='orange', width = 0.5, label='TR with Restaurant')
+    number=round((rest_list[i]/city_len[i])*100,1)
+    axs[0].text(province[i], rest_list[i], str(number)+'%', ha='center',va= 'bottom', weight='bold')
+
+# the following 3 lines are only to avoid legend repetition
+handles, labels = axs[0].get_legend_handles_labels()
+by_label = dict(zip(labels, handles))
+axs[0].legend(by_label.values(), by_label.keys())
+
+## 2nd bar chart ( multiple bar chart)
+
+X=np.arange(7)
+
+data = [city_len, rest_list]
+
+axs[1].set_title('Multiple Bar Chart',fontsize=20)
+axs[1].set_xlabel('Province')
+axs[1].set_ylabel('Number of Tourist Residences')
+
+for i in X:
+    axs[1].bar(X[i] - 0.15, data[1][i], width = 0.25, color = list_of_colors[i])
+    axs[1].bar(X[i] + 0.15, data[0][i], color = 'grey', width = 0.25, label='Total TR')
+    number=round((rest_list[i]))
+    axs[1].text(X[i] - 0.15, data[1][i], str(number), ha='center',va= 'bottom', weight='bold')
+    number=round((city_len[i]))
+    axs[1].text(X[i] + 0.15, data[0][i], str(number), ha='center',va= 'bottom', weight='bold')
+    
+
+# the following 3 lines are only to avoid legend repetition
+handles, labels = axs[1].get_legend_handles_labels()
+by_label = dict(zip(labels, handles))
+axs[1].legend(by_label.values(), by_label.keys())
+
+## set the name of province in x axis
+axs[1].set_xticks(X)
+axs[1].set_xticklabels(province)
+
+## How many tourist residences have Restaurant in Veneto?
+
+sum_rest = np.sum(rest_list)
+total_tr = np.sum(city_len)
+
+## ratio of tr with restaurant in Veneto
+
+ratio_rest_tr = sum_rest/total_tr
+
+## create a pie chart with the tourist residences with restaurant and without in Veneto
+
+labels = ['With Restaurant', 'Without Restaurant']
+sizes = [ratio_rest_tr, 1 - ratio_rest_tr]
+
+fig18, ax1 = plt.subplots(figsize=(10,7))
+ax1.pie(sizes, labels=labels, autopct='%1.1f%%',
+        shadow=True, startangle=90, wedgeprops = { 'linewidth' : 3, 'edgecolor' : 'white' }, colors=palette)
+ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle
+
+plt.suptitle("Tourist Residences with Restaurant in Veneto", fontsize=20)
+
+plt.show()
 
 if st.sidebar.checkbox("PLOTS"):
 
@@ -1483,15 +1609,15 @@ if st.sidebar.checkbox("PLOTS"):
 
       st.subheader('Pie Charts')
       st.write('The __first__ pie chart refers to the number of TR with PP spots normalized by number of TR by Provincia. The __second__ refers to the total number of TR with PP spots in Veneto')   
-      st.write(fig4)
+      st.write(fig13)
 
       st.subheader('Bar Charts')
       st.write('These bar charts show the percentage (1) and the number (2) of TR with PP Spots by Provincia')
-      st.write(fig5)
+      st.write(fig14)
 
       st.subheader('Portion of TR wirh Pool in Veneto')
       st.write('How many TR have Private Parking Spots?')
-      st.write(fig6)
+      st.write(fig15)
     
     if plot == 'TR with Restaurant':
       st.title('TR with Restaurant')
@@ -1499,15 +1625,15 @@ if st.sidebar.checkbox("PLOTS"):
       
       st.subheader('Pie Charts')
       st.write('The __first__ pie chart refers to the number of TR with Restaurant normalized by number of TR by Provincia. The __second__ refers to the total number of TR with Restaurant in Veneto')   
-      st.write(fig4)
+      st.write(fig16)
 
       st.subheader('Bar Charts')
       st.write('These bar charts show the percentage (1) and the number (2) of TR with Restaurant by Provincia')
-      st.write(fig5)
+      st.write(fig17)
 
       st.subheader('Portion of TR wirh Pool in Veneto')
       st.write('How many TR have Restaurant?')
-      st.write(fig6)
+      st.write(fig18)
 
 
 

@@ -407,7 +407,7 @@ st.sidebar.write("What do you want to see?")
 
 if st.sidebar.checkbox("INFO AND LEGEND"):
 
-  st.write('Welcome! My name is Nicolò Avesani, and this is my project. I have choosen a dataset called **Tourist Residences in Veneto**, which is focused on the description of all the tourist residences in Veneto (Italy).')
+  st.write('Welcome! My name is Nicolò Avesani, and this is my project. I have choosen a dataset called **Tourist Residences in Veneto**, which describes the main descriptive variables of accommodation facilities in Veneto.')
   
 
   city_coordinates = {
@@ -424,7 +424,7 @@ if st.sidebar.checkbox("INFO AND LEGEND"):
 
   df = pd.DataFrame(marker_data, columns=['name', 'lat', 'lon'])
 
-  st.write("""# Map of Cities in the Veneto Region of Italy""")
+  st.write("""# Map of Provinces in Veneto""")
   st.write('This is the map with the 7 **Province**. There are 7 Districts in Veneto (Belluno, Padova, Rovigo, Treviso, Venezia, Verona, Vicenza). You can see below where they are geographically located')
 
   st.map(df)
@@ -613,11 +613,11 @@ if st.sidebar.checkbox("EDA"):
     st.write('These columns provide __useless__ information, since they concern only the single residential facility, and are linked to **contact information**. ')
 
     st.markdown("""I also drop the following columns that, even if they provide information about descriptive characteristics, are not relevant for my purposes:
-     - INDOOR SWIMMING POOL, 
-     - CONFERENCE ROOM, 
-     - SOLARIUM, 
-     - OUTSKIRTS, 
-     - HILLS""")
+     - **INDOOR SWIMMING POOL**, 
+     - **CONFERENCE ROOM**, 
+     - **SOLARIUM**, 
+     - **OUTSKIRTS**, 
+     - **HILLS**""")
 
     st.write('__Info of the Cleaned DF__')
     st.code(code_cleaned_df)
@@ -633,7 +633,7 @@ if st.sidebar.checkbox("EDA"):
     st.dataframe(tourism_clear_class_df)
     
     st.title('.Groupby([PROVINCIA])')
-    st.header('Info about Average and Total Number of TR with **descriptive variable** by Provincia')
+    st.header('Info about Average (.mean()) and Total Number (.sum()) of TR with **descriptive variable** by Provincia')
     st.write('The following dataframe gives me info about the avarage and total number of accomodations with certain characteristics:')
     st.header('__AVERAGE__')
 
@@ -1468,7 +1468,7 @@ if st.sidebar.checkbox("PLOTS"):
 
     if plot == 'TR speaking foreign language(s)':
       st.title('Difference between English and All 4 Languages')
-      st.write('The floolwing plots show the difference between TR speaking English (the universal language) and TR speaking all 4 principal languages (***Spanish, Deutch, French, English***. ')
+      st.write('The floolwing plots show the difference between TR speaking English (the universal language) and TR speaking all 4 principal languages (***Spanish, German, French, English***.) ')
     
       st.subheader('Pie Chart')
       st.write('Pie charts showing the percentage of TR speaking foreign language(s) by provincia (Normalized) and in Veneto (Not Normalized)')

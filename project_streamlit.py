@@ -4,7 +4,6 @@ import matplotlib.pyplot as plt
 from sklearn import preprocessing
 import seaborn as sb
 import numpy as np
-from sklearn import processing
 
 tourism_structures_df = pd.read_csv('https://www.veneto.eu/static/opendata/dove-alloggiare.csv')
 
@@ -997,12 +996,16 @@ if st.sidebar.checkbox("PLOTS"):
     ## which provincia has the higher number of TR?
 
     
-    st.title('TR per Provincia')
-    for i in range(len(city_list)):
-      st.bar_chart(province[i], city_len[i])
-      
+    st.title("City Lengths by Province")
 
+    len_prov = {'BELLUNO':825, 'PADOVA':553, 'TREVISO':555, 'ROVIGO':178, 'VENEZIA':2570, 'VERONA':2024, 'VICENZA':632}
+    len_prov = pd.Series(len_prov)
+    len_prov_df = pd.DataFrame(len_prov)
+    len_prov_df.columns = ['# TR']
 
+    st.bar_chart(len_prov_df)
+
+    st.title('Analyze the Province')
     st.write('__Now__, you can see the full analysis of TR per Provincia in the two plots below.')
     st.write('The __former__ is a bar chart with the information of the number of TR in the chosen Provincia with the particular characteristic.')
     st.write('The __latter__ refers to the percentage of TR with the presence of the particular characteristic.')
@@ -1145,59 +1148,30 @@ if st.sidebar.checkbox("PLOTS"):
     st.subheader('Portion of TR wirh Pool in Veneto')
     st.write(fig6)
 
-    st.title('TR Speaking English in Veneto')
-    st.write('Definition of English: Tourist residences that speak English refer to accomodations where the staff or management can communicate effectively in English with the guests. These types of properties are popular among tourists and vacationers who primarily speak English and may not be fluent in the local language.  This can include properties where the front-desk staff, housekeeping, maintenance, and other staff members are able to speak and understand English, as well as properties where the majority of guests are English-speaking. Some tourist residences may also provide written information or signage in English to help guests navigate their stay. These type of tourist residences are a great option for travelers who are visiting a foreign country and want to feel comfortable and well-informed during their stay.')
+    st.title('Difference between English and All 4 Lenguages')
+    st.write('The floolwing plots show the difference between TR speaking English (the universal lenguage) and TR speaking all 4 principal lenguages (***Spanish, Deutch, French, English***. ')
     
-    st.subheader('Pie Charts')
+    st.subheader('Pie Chart')
+    st.write('Pie charts showing the percentage of TR speaking foreign lenguage(s) per provincia (Normalized) and in Veneto (Not Normalized)')
     st.write(fig7)
-
-    st.subheader('Bar Charts')
-    st.write(fig8)
-
-    st.subheader('Portion of TR Speaking English in Veneto')
-    st.write(fig9)
-
-    st.title('TR speaking All 4 Languages in Veneto')
-    st.write('Definition of 4 Languages. Tourist residences that speak English, Spanish, Deutch, French refer to accomodations where the staff or management can communicate effectively in multiple languages, including English, Spanish, Deutch, and French with the guests.')
-    
-    st.subheader('Pie Charts')
     st.write(fig10)
 
     st.subheader('Bar Charts')
+    st.write('Bar chart show the ratio and number of TR speaking foreign lenguage(s)')
+    st.write(fig8)
     st.write(fig11)
 
-    st.subheader('Portion of TR Speaking All Languages in Veneto')
+    st.subheader('Portion of TR Speaking Foreign Lenguage(s)')
+    st.write(fig9)
     st.write(fig12)
     
-    import folium
-    from IPython.core.display import display, HTML
 
-
-    def folium_deepnote_show(m):
-        data = m.get_root().render()
-        data_fixed_height = data.replace('width: 100%;height: 100%', 'width: 100%').replace('height: 100.0%;', 'height: 609px;', 1)
-        display(HTML(data_fixed_height))
-
-    def map_with_cities(cities):
-        m = folium.Map(location=[45.5236, 12.2756], zoom_start=8)
-        folium_deepnote_show(m)
     
-        for city, coord in cities.items():
-            folium.Marker(location=coord, popup=city).add_to(m)
-        
-        return m
+  
 
-    cities = {
-    'Belluno': [46.1451, 12.2457],
-    'Padova': [45.4167, 11.8833],
-    'Rovigo': [45.0805, 11.7914],
-    'Treviso': [45.6667, 12.2417],
-    'Venezia': [45.4389, 12.3194],
-    'Verona': [45.4386, 10.9916],
-    'Vicenza': [45.5409, 11.5341]
-    }
 
-    st.write(map_with_cities(cities),unsafe_allow_html=True)
+    
+  
 
 
 

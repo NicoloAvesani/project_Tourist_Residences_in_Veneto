@@ -465,7 +465,9 @@ if st.sidebar.checkbox("INFO AND LEGEND"):
 
 if st.sidebar.checkbox("EDA"):
 
-    st.title('1 Explore and Clean the Dataset')
+    st.title('Explore and Clean the Dataset')
+
+    st.write('**Note! throughout the project I will use the acronym TR to indicate the Tourist Residences in Veneto')
 
     st.write('Firstly, I have imported the dataset using pandas. That is how it looks like:')
 

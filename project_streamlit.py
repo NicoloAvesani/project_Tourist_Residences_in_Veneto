@@ -1545,7 +1545,7 @@ if st.sidebar.checkbox("PLOTS"):
         st.pyplot(plt.gcf())
     
     st.title('TR Characteristic Analysis')
-    plot = st.selectbox('__Choose the Variable to Analyze__',('Pet-friendly TR','TR with Pool','TR speaking foreign language(s)','TR with Private Parking Spots','TR with Restaurant'))
+    plot = st.selectbox('__Choose the Variable to Analyze__',('Pet-friendly TR','TR with Pool','TR that speak foreign language(s)','TR with Private Parking Spots','TR with Restaurant'))
 
 
     if plot == 'Pet-friendly TR':

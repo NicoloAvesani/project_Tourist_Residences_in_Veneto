@@ -1120,47 +1120,54 @@ if st.sidebar.checkbox("PLOTS"):
         st.pyplot(plt.gcf())
     
 
+    plot = st.selectbox('Choose the Characteristic Analyzed'('Pet-friendly TR','TR with Pool','TR speaking foreign language(s)','TR with Private Parking Spots','TR with Wellness Area','TR with Restaurant'))
 
 
-    st.title('Pet-Friendly TR in Veneto')
-    st.write('Definition of Animal Friendly --> Animal friendly tourist residences are accommodations that are: designed and managed to be welcoming and accommodating to both human guests and their animal companions. This may include features such as designated pet-friendly rooms or areas, easy access to outdoor spaces for exercise and relief, and possibly even on-site pet services such as grooming or boarding.')
-    st.subheader('Pie Charts')
-    st.write(fig1)
+    if plot == 'Pet-friendly TR':
+      st.title('Pet-Friendly TR in Veneto')
+      st.write('Definition of Animal Friendly --> Animal friendly tourist residences are accommodations that are: designed and managed to be welcoming and accommodating to both human guests and their animal companions. This may include features such as designated pet-friendly rooms or areas, easy access to outdoor spaces for exercise and relief, and possibly even on-site pet services such as grooming or boarding.')
+      st.subheader('Pie Charts')
+      st.write(fig1)
 
-    st.subheader('Bar Charts')
-    st.write(fig2)
+      st.subheader('Bar Charts')
+      st.write(fig2)
 
-    st.subheader('Portion of Pet-Frientdly TR in Veneto')
-    st.write(fig3)
+      st.subheader('Portion of Pet-Frientdly TR in Veneto')
+      st.write(fig3)
 
-    st.title('TR with Pool in Veneto')
-    st.write('Definition of Pool: Tourist residences with pool refers to accomodation that have a swimming pool on the property. These types of properties are popular among tourists and vacationers who are looking for a place to stay that offers the convenience and luxury of having a pool to swim in during their stay. ')
+    if plot == 'TR with Pool':
 
-    st.subheader('Pie Charts')   
-    st.write(fig4)
+      st.title('TR with Pool in Veneto')
+      st.write('Definition of Pool: Tourist residences with pool refers to accomodation that have a swimming pool on the property. These types of properties are popular among tourists and vacationers who are looking for a place to stay that offers the convenience and luxury of having a pool to swim in during their stay. ')
 
-    st.subheader('Bar Charts')
-    st.write(fig5)
+      st.subheader('Pie Charts')   
+      st.write(fig4)
 
-    st.subheader('Portion of TR wirh Pool in Veneto')
-    st.write(fig6)
+      st.subheader('Bar Charts')
+      st.write(fig5)
 
-    st.title('Difference between English and All 4 Lenguages')
-    st.write('The floolwing plots show the difference between TR speaking English (the universal lenguage) and TR speaking all 4 principal lenguages (***Spanish, Deutch, French, English***. ')
+      st.subheader('Portion of TR wirh Pool in Veneto')
+      st.write(fig6)
+
+
+    if plot == 'TR speaking foreign language(s)':
+      st.title('Difference between English and All 4 Lenguages')
+      st.write('The floolwing plots show the difference between TR speaking English (the universal lenguage) and TR speaking all 4 principal lenguages (***Spanish, Deutch, French, English***. ')
     
-    st.subheader('Pie Chart')
-    st.write('Pie charts showing the percentage of TR speaking foreign lenguage(s) per provincia (Normalized) and in Veneto (Not Normalized)')
-    st.write(fig7)
-    st.write(fig10)
+      st.subheader('Pie Chart')
+      st.write('Pie charts showing the percentage of TR speaking foreign lenguage(s) per provincia (Normalized) and in Veneto (Not Normalized)')
+      st.write(fig7)
+      st.write(fig10)
 
-    st.subheader('Bar Charts')
-    st.write('Bar chart show the ratio and number of TR speaking foreign lenguage(s)')
-    st.write(fig8)
-    st.write(fig11)
+      st.subheader('Bar Charts')
+      st.write('Bar chart show the ratio and number of TR speaking foreign lenguage(s)')
+      st.write(fig8)
+      st.write(fig11)
 
-    st.subheader('Portion of TR Speaking Foreign Lenguage(s)')
-    st.write(fig9)
-    st.write(fig12)
+      st.subheader('Portion of TR Speaking Foreign Lenguage(s)')
+      st.write('Pie charts with the portion of TR speaking English and All 4 languages')
+      st.write(fig9)
+      st.write(fig12)
     
 
     

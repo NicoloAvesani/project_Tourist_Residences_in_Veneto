@@ -412,7 +412,7 @@ if st.sidebar.checkbox("INFO AND LEGEND"):
   city_coordinates = {
     'Belluno': [46.13, 12.21],
     'Padova': [45.40, 11.87],
-    'Rovigo': [45.17, 11.80],
+    'Rovigo': [45.04, 11.47],
     'Treviso': [45.66, 12.24],
     'Venezia': [45.44, 12.33],
     'Verona': [45.44, 10.99],
@@ -424,6 +424,7 @@ if st.sidebar.checkbox("INFO AND LEGEND"):
   df = pd.DataFrame(marker_data, columns=['name', 'lat', 'lon'])
 
   st.write("""# Map of Cities in the Veneto Region of Italy""")
+  st.write('This is the map with the 7 **Province**. There are 7 Districts in Veneto (Belluno, Padova, Rovigo, Treviso, Venezia, Verona, Vicenza). You can see below where they are geographically located')
 
   st.map(df)
 
@@ -432,7 +433,7 @@ if st.sidebar.checkbox("INFO AND LEGEND"):
   st.markdown("""However, here is the list of all the Analyzed variables (translated from Italian to English):
 
   ## Location Data
-  - Provincia = Province : There are 7 Districts in Veneto (Belluno, Padova, Rovigo, Treviso, Venezia, Verona, Vicenza)
+  - Provincia = Province 
   - Comune = municipality
   - Centro Storico = Historical Centre
   - Zona Fiera = Fair Area
@@ -467,7 +468,7 @@ if st.sidebar.checkbox("EDA"):
 
     st.title('Explore and Clean the Dataset')
 
-    st.write('**Note! throughout the project I will use the acronym TR to indicate the Tourist Residences in Veneto')
+    st.write('**Note! throughout the project I will use the acronym TR to indicate the Tourist Residences in Veneto**')
 
     st.write('Firstly, I have imported the dataset using pandas. That is how it looks like:')
 

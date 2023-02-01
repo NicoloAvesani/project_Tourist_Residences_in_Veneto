@@ -1558,14 +1558,34 @@ if st.sidebar.checkbox("CORRELATION AND HEATMAP"):
 
 if st.sidebar.checkbox("MODEL"):
   
-
+  tr_copy = tr_df.drop(columns=['PROVINCIA','COMUNE','TIPOLOGIA','DENOMINAZIONE','CLASSIFICAZIONE']).copy()
+  
+  choose_the_target = st.selectbox('Choose the target',('UNDER 3','Grater Equal 3','Grater Equal 4','Class 5'))
   # Data preparation
   
+  if choose_the_target == 'UNDER 3':
+    feature = tr_copy.drop(columns=['UNDER 3'])
+    target = tr_copy['UNDER 3']
+    
 
-  tr_copy = tr_df.drop(columns=['PROVINCIA','COMUNE','TIPOLOGIA','DENOMINAZIONE','CLASSIFICAZIONE']).copy()
+  if choose_the_target == 'Grater Equal 3':
 
-  feature = tr_copy.drop(columns=['UNDER 3'])
-  target = tr_copy['UNDER 3']
+    feature = tr_copy.drop(columns=['G.E 3'])
+    target = tr_copy['G.E 3']
+
+  if choose_the_target == 'Grater Equal 4':
+
+    feature = tr_copy.drop(columns=['G.E. 4'])
+    target = tr_copy['G.E. 4']
+
+  if choose_the_target == 'Class 5':
+
+    feature = tr_copy.drop(columns=['CLASS 5'])
+    target = tr_copy['CLASS 5']
+
+  
+  
+
   X_train, X_test, y_train, y_test = train_test_split(feature , target, 
                                                     shuffle = True, 
                                                     test_size=0.2, 

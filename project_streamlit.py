@@ -805,6 +805,9 @@ ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle
 
 plt.suptitle("Pet Friendly Tourist Residences in Veneto", fontsize=20)
 
+
+
+## POOL
 belluno_pool_tr = belluno_descriptive.loc['PISCINA']
 padova_pool_tr = padova_descriptive.loc['PISCINA']
 treviso_pool_tr = treviso_descriptive.loc['PISCINA']
@@ -906,11 +909,7 @@ axs[1].set_xticklabels(province)
 sum_pool = np.sum(pool_list)
 total_tr = np.sum(city_len)
 
-## ratio of animal friendly tr in Veneto
-
 ratio_pool_tr = sum_pool/total_tr
-
-## create a pie chart with the pf tourist residences and the not pf tourist residences in Veneto
 
 labels = ['With Pool', 'Without Pool']
 sizes = [ratio_pool_tr, 1 - ratio_pool_tr]
@@ -938,11 +937,11 @@ venezia_eng_tr = venezia_descriptive.loc['INGLESE']
 verona_eng_tr = verona_descriptive.loc['INGLESE']
 vicenza_eng_tr = vicenza_descriptive.loc['INGLESE']
 
-## array with ratio of pool tr and total tr by provincia
+## array with ratio of English Speaking TR
 eng_array_1 = np.array([belluno_eng_tr/belluno_tr, padova_eng_tr/padova_tr, treviso_eng_tr/treviso_tr, rovigo_eng_tr/rovigo_tr, venezia_eng_tr/venezia_tr, verona_eng_tr/verona_tr, vicenza_eng_tr/vicenza_tr])
 normalized_arr_1 = preprocessing.normalize(eng_array_1[np.newaxis])
 
-## array with number of pool tr by provincia
+## array with number of English Speaking TR
 eng_array_2 = np.array([belluno_eng_tr, padova_eng_tr, treviso_eng_tr, rovigo_eng_tr, venezia_eng_tr, verona_eng_tr, vicenza_eng_tr])
 normalized_arr_2 = preprocessing.normalize(eng_array_2[np.newaxis])
 
@@ -967,7 +966,7 @@ axs[0].set_title("Normalized Proportion of TR speaking English ", fontweight='bo
 
 donut_circle = plt.Circle( (0,0), 0.45, color = 'white')
 
-## axs[1] --> this is the axs in which I see the normalized proportion of TR with Pool in Veneto (Total number of TR with Pool)
+## axs[1] --> this is the axs in which I see the normalized proportion of TR 
 axs[1].pie(data_2, autopct='%.2f%%', colors =palette)
 axs[1].add_artist(donut_circle)
 axs[1].set_title("Not Normalized Proportion of TR speaking English ", fontweight='bold')
@@ -1060,11 +1059,11 @@ venezia_lan_tr = venezia_descriptive.loc['LANGUAGES']
 verona_lan_tr = verona_descriptive.loc['LANGUAGES']
 vicenza_lan_tr = vicenza_descriptive.loc['LANGUAGES']
 
-## array with ratio of pool tr and total tr by provincia
+
 lan_array_1 = np.array([belluno_lan_tr/belluno_tr, padova_lan_tr/padova_tr, treviso_lan_tr/treviso_tr, rovigo_lan_tr/rovigo_tr, venezia_lan_tr/venezia_tr, verona_lan_tr/verona_tr, vicenza_lan_tr/vicenza_tr])
 normalized_arr_1 = preprocessing.normalize(lan_array_1[np.newaxis])
 
-## array with number of pool tr by provincia
+
 lan_array_2 = np.array([belluno_lan_tr, padova_lan_tr, treviso_lan_tr, rovigo_lan_tr, venezia_lan_tr, verona_lan_tr, vicenza_lan_tr])
 normalized_arr_2 = preprocessing.normalize(lan_array_2[np.newaxis])
 
@@ -1082,14 +1081,14 @@ labels = province
 
 donut_circle = plt.Circle( (0,0), 0.45, color = 'white')
 
-## axs[0] --> this is the one in which I see the normalizet proportion of TR with Pool by provincia
+## axs[0] --> this is the one in which I see the normalizet proportion of TR 
 axs[0].pie(data_1, autopct='%.2f%%', labels =labels, colors =palette)
 axs[0].add_artist(donut_circle)
 axs[0].set_title("Normalized Proportion of TR speaking All Languages ", fontweight='bold')
 
 donut_circle = plt.Circle( (0,0), 0.45, color = 'white')
 
-## axs[1] --> this is the axs in which I see the normalized proportion of TR with Pool in Veneto (Total number of TR with Pool)
+## axs[1] --> this is the axs in which I see the normalized proportion of TR that speak all 4 lenguages in Veneto
 axs[1].pie(data_2, autopct='%.2f%%', colors =palette)
 axs[1].add_artist(donut_circle)
 axs[1].set_title("Not Normalized Proportion of TR speaking All Languages ", fontweight='bold')
@@ -1153,11 +1152,7 @@ axs[1].set_xticklabels(province)
 sum_lan = np.sum(lan_list)
 total_tr = np.sum(city_len)
 
-## ratio of animal friendly tr in Veneto
-
 ratio_lan_tr = sum_lan/total_tr
-
-## create a pie chart with the pf tourist residences and the not pf tourist residences in Veneto
 
 labels = ['Do Speak All Languages', 'Do Not Speak All Languages']
 sizes = [ratio_lan_tr, 1 - ratio_lan_tr]
@@ -1168,6 +1163,7 @@ ax1.pie(sizes, labels=labels, autopct='%1.1f%%',
 ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle
 
 plt.suptitle("Tourist Residences Speak All Languages in Veneto", fontsize=20)
+
 
 ## Parking
 ## Tourist residences with private parking are accomodations that provide private parking spaces for guests.
@@ -1203,14 +1199,14 @@ labels = province
 
 donut_circle = plt.Circle( (0,0), 0.45, color = 'white')
 
-## axs[0] --> this is the one in which I see the normalizet proportion of TR with Pool by provincia
+## axs[0] --> this is the one in which I see the normalizet proportion of TR with Parking by provincia
 axs[0].pie(data_1, autopct='%.2f%%', labels =labels, colors =palette)
 axs[0].add_artist(donut_circle)
 axs[0].set_title("Normalized Proportion of TR with Private Parking ", fontweight='bold')
 
 donut_circle = plt.Circle( (0,0), 0.45, color = 'white')
 
-## axs[1] --> this is the axs in which I see the normalized proportion of TR with Pool in Veneto (Total number of TR with Pool)
+## axs[1] --> this is the axs in which I see the normalized proportion of TR with Parking in Veneto
 axs[1].pie(data_2, autopct='%.2f%%', colors =palette)
 axs[1].add_artist(donut_circle)
 axs[1].set_title("Not Normalized Proportion of TR with Private Parking ", fontweight='bold')
@@ -1274,11 +1270,7 @@ axs[1].set_xticklabels(province)
 sum_park = np.sum(park_list)
 total_tr = np.sum(city_len)
 
-## ratio of animal friendly tr in Veneto
-
 ratio_park_tr = sum_park/total_tr
-
-## create a pie chart with the pf tourist residences and the not pf tourist residences in Veneto
 
 labels = ['Do Have Private Parking', 'Do Not Have Private Parking']
 sizes = [ratio_park_tr, 1 - ratio_park_tr]
@@ -1465,9 +1457,9 @@ if st.sidebar.checkbox("PLOTS"):
       st.write(fig6)
 
 
-    if plot == 'TR speaking foreign language(s)':
+    if plot == 'TR that speak foreign language(s)':
       st.title('Difference between English and All 4 Languages')
-      st.write('The floolwing plots show the difference between TR speaking English (the universal language) and TR speaking all 4 principal languages (***Spanish, German, French, English***.) ')
+      st.write('The floolwing plots show the difference between English Speaking TR (the universal language) and TR that speak all 4 principal languages (***Spanish, German, French, English***.) ')
     
       st.subheader('Pie Chart')
       st.write('Pie charts showing the percentage of TR speaking foreign language(s) by provincia (Normalized) and in Veneto (Not Normalized)')

@@ -5,6 +5,9 @@ import seaborn as sb
 import numpy as np
 import sklearn
 from sklearn import preprocessing
+from sklearn.model_selection import train_test_split
+from sklearn import tree
+from sklearn import metrics
 
 
 tourism_structures_df = pd.read_csv('https://www.veneto.eu/static/opendata/dove-alloggiare.csv')
@@ -412,7 +415,7 @@ if st.sidebar.checkbox("INFO AND LEGEND"):
   city_coordinates = {
     'Belluno': [46.13, 12.21],
     'Padova': [45.40, 11.87],
-    'Rovigo': [45.04, 11.47],
+    'Rovigo': [45.067, 11.795],
     'Treviso': [45.66, 12.24],
     'Venezia': [45.44, 12.33],
     'Verona': [45.44, 10.99],
@@ -1551,6 +1554,55 @@ if st.sidebar.checkbox("CORRELATION AND HEATMAP"):
   st.write('In the next section I tried to build a linear regression model in order to study how the correlation changes as the classification of the tourist residence increases')
 
 
+##  linear regression model
+
+if st.sidebar.checkbox("MODEL"):
+  
+
+  # Data preparation
+  
+
+  tr_copy = tr_df.drop(columns=['PROVINCIA','COMUNE','TIPOLOGIA','DENOMINAZIONE','CLASSIFICAZIONE']).copy()
+
+  feature = tr_copy.drop(columns=['UNDER 3'])
+  target = tr_copy['UNDER 3']
+  X_train, X_test, y_train, y_test = train_test_split(feature , target, 
+                                                    shuffle = True, 
+                                                    test_size=0.2, 
+                                                    random_state=1)
+
+  # Evaluation function
+  def evaluate_model(model, x_test, y_test):
+      y_pred = model.predict(x_test)
+      acc = metrics.accuracy_score(y_test, y_pred)
+      prec = metrics.precision_score(y_test, y_pred)
+      rec = metrics.recall_score(y_test, y_pred)
+      f1 = metrics.f1_score(y_test, y_pred)
+      kappa = metrics.cohen_kappa_score(y_test, y_pred)
+      y_pred_proba = model.predict_proba(x_test)[::,1]
+      fpr, tpr, _ = metrics.roc_curve(y_test, y_pred_proba)
+      auc = metrics.roc_auc_score(y_test, y_pred_proba)
+      cm = metrics.confusion_matrix(y_test, y_pred)
+      return {'acc': acc, 'prec': prec, 'rec': rec, 'f1': f1, 'kappa': kappa, 
+              'fpr': fpr, 'tpr': tpr, 'auc': auc, 'cm': cm}
+
+  # Building Decision Tree model 
+  dtc = tree.DecisionTreeClassifier(random_state=0)
+  dtc.fit(X_train, y_train)
+
+  # Evaluate Model
+  dtc_eval = evaluate_model(dtc, X_test, y_test)
+
+  # Streamlit interface
+  st.title("Decision Tree Model")
+
+  st.write("Accuracy: ", dtc_eval['acc'])
+  st.write("Precision: ", dtc_eval['prec'])
+  st.write("Recall: ", dtc_eval['rec'])
+  st.write("F1-score: ", dtc_eval['f1'])
+  st.write("Kappa score: ", dtc_eval['kappa'])
+  st.write("AUC: ", dtc_eval['auc'])
+  st.write("Confusion Matrix: ", dtc_eval['cm'])
 
 
 

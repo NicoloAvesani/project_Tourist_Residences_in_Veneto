@@ -426,7 +426,38 @@ if st.sidebar.checkbox("INFO AND LEGEND"):
 
   st.map(df)
 
+  st.title('Legend')
+  st.write('I did not want to change the names of the descriptive variables in my dataframe as they are very similar to English words, and therefore understandable. It can also be a good way to learn some Italian words!')
+  st.markdown("""However, here is the list of all the Analyzed variables (translated from Italian to English):
 
+  ## Location Data
+  - Provincia = Province : There are 7 Districts in Veneto (Belluno, Padova, Rovigo, Treviso, Venezia, Verona, Vicenza)
+  - Comune = municipality
+  - Centro Storico = Historical Centre
+  - Zona Fiera = Fair Area
+  - Lago = Lake
+  - Aereoporto = Airport
+  - Autostrada = Highway
+  - Impianti di Risalita = Lifts (Ski)
+  - Stazione FS = Railway Station
+  - Mare = Sea
+  - Termale = Thermal Area
+
+  ##Services
+  - Piscina = Swimming Pool
+  - Ristorante = Restaurant
+  - Parcheggio = Parking Spots
+  - Aria Condizionata = Air Conditioning 
+  - Giochi Bimbi = Children Games
+  - Sauna = Sauna
+  - Fitness = Fitness
+  - Animali Ammessi = Pet Allowed
+  - Inglese = English (Speaking)
+  - Tedesco = German (Speaking)
+  - Francese = French (Speaking)
+  - Spagnolo = Spanish (Speaking)
+  - Chiusura Temporanea = Temporary Closure
+  """)
 
 
 

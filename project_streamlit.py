@@ -983,6 +983,128 @@ ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle
 
 plt.suptitle("Tourist Residences Speak All Languages in Veneto", fontsize=20)
 
+## Parking
+## Tourist residences with private parking are accomodations that provide private parking spaces for guests.
+## The private parking is a convenience for guests who have rented a vehicle or brought their own, as it provides a secure and convenient place to park.
+
+belluno_park_tr = belluno_descriptive.loc['PARCHEGGIO']
+padova_park_tr = padova_descriptive.loc['PARCHEGGIO']
+treviso_park_tr = treviso_descriptive.loc['PARCHEGGIO']
+rovigo_park_tr = rovigo_descriptive.loc['PARCHEGGIO']
+venezia_park_tr = venezia_descriptive.loc['PARCHEGGIO']
+verona_park_tr = verona_descriptive.loc['PARCHEGGIO']
+vicenza_park_tr = vicenza_descriptive.loc['PARCHEGGIO']
+
+## array with ratio of pool tr and total tr per provincia
+park_array_1 = np.array([belluno_park_tr/belluno_tr, padova_park_tr/padova_tr, treviso_park_tr/treviso_tr, rovigo_park_tr/rovigo_tr, venezia_park_tr/venezia_tr, verona_park_tr/verona_tr, vicenza_park_tr/vicenza_tr])
+normalized_arr_1 = preprocessing.normalize(park_array_1[np.newaxis])
+
+## array with number of pool tr per provincia
+park_array_2 = np.array([belluno_park_tr, padova_park_tr, treviso_park_tr, rovigo_park_tr, venezia_park_tr, verona_park_tr, vicenza_park_tr])
+normalized_arr_2 = preprocessing.normalize(park_array_2[np.newaxis])
+
+## create pie charts
+fig13, axs = plt.subplots(nrows = 1, ncols = 2, figsize = (20, 10), constrained_layout = True)
+palette = sb.color_palette("pastel")
+
+
+## normalizing tha array
+## In this way i will have an array with normalized values for the two data
+data_1 = (normalized_arr_1.T).flatten()
+data_2 = (normalized_arr_2.T).flatten()
+
+labels = province
+
+donut_circle = plt.Circle( (0,0), 0.45, color = 'white')
+
+## axs[0] --> this is the one in which I see the normalizet proportion of TR with Pool per provincia
+axs[0].pie(data_1, autopct='%.2f%%', labels =labels, colors =palette)
+axs[0].add_artist(donut_circle)
+axs[0].set_title("Normalized Proportion of TR with Private Parking ", fontweight='bold')
+
+donut_circle = plt.Circle( (0,0), 0.45, color = 'white')
+
+## axs[1] --> this is the axs in which I see the normalized proportion of TR with Pool in Veneto (Total number of TR with Pool)
+axs[1].pie(data_2, autopct='%.2f%%', colors =palette)
+axs[1].add_artist(donut_circle)
+axs[1].set_title("Not Normalized Proportion of TR with Private Parking ", fontweight='bold')
+
+fig13.suptitle("TR with Private Parking in Veneto", fontsize=30)
+
+plt.legend(labels, title='Province')
+plt.axis('equal')
+
+park_list=[belluno_park_tr, padova_park_tr, treviso_park_tr, rovigo_park_tr, venezia_park_tr, verona_park_tr, vicenza_park_tr]
+
+fig14, axs = plt.subplots(1, 2, figsize=(30, 10))
+
+plt.suptitle('How many TR have Private Parking in Veneto?', fontsize=25.9)
+
+axs[0].set_title('Stacked Bar Chart', fontsize=20)
+axs[0].set_xlabel('Province')
+axs[0].set_ylabel('Number of Tourist Residences')
+
+for i in range(len(park_list)):
+    axs[0].bar(province[i], city_len[i], color='grey', width = 0.5, label='Total TR')
+    axs[0].bar(province[i], park_list[i], color='orange', width = 0.5, label='TR with PP')
+    number=round((park_list[i]/city_len[i])*100,1)
+    axs[0].text(province[i], park_list[i], str(number)+'%', ha='center',va= 'bottom', weight='bold')
+
+# the following 3 lines are only to avoid legend repetition
+handles, labels = axs[0].get_legend_handles_labels()
+by_label = dict(zip(labels, handles))
+axs[0].legend(by_label.values(), by_label.keys())
+
+## 2nd bar chart ( multiple bar chart)
+
+X=np.arange(7)
+
+data = [city_len, park_list]
+
+axs[1].set_title('Multiple Bar Chart',fontsize=20)
+axs[1].set_xlabel('Province')
+axs[1].set_ylabel('Number of Tourist Residences')
+
+for i in X:
+    axs[1].bar(X[i] - 0.15, data[1][i], width = 0.25, color = list_of_colors[i])
+    axs[1].bar(X[i] + 0.15, data[0][i], color = 'grey', width = 0.25, label='Total TR')
+    number=round((park_list[i]))
+    axs[1].text(X[i] - 0.15, data[1][i], str(number), ha='center',va= 'bottom', weight='bold')
+    number=round((city_len[i]))
+    axs[1].text(X[i] + 0.15, data[0][i], str(number), ha='center',va= 'bottom', weight='bold')
+    
+
+# the following 3 lines are only to avoid legend repetition
+handles, labels = axs[1].get_legend_handles_labels()
+by_label = dict(zip(labels, handles))
+axs[1].legend(by_label.values(), by_label.keys())
+
+## set the name of province in x axis
+axs[1].set_xticks(X)
+axs[1].set_xticklabels(province)
+
+## How many tourist residences have Private Parking in Veneto?
+
+sum_park = np.sum(park_list)
+total_tr = np.sum(city_len)
+
+## ratio of animal friendly tr in Veneto
+
+ratio_park_tr = sum_park/total_tr
+
+## create a pie chart with the pf tourist residences and the not pf tourist residences in Veneto
+
+labels = ['Do Have Private Parking', 'Do Not Have Private Parking']
+sizes = [ratio_park_tr, 1 - ratio_park_tr]
+
+fig15, ax1 = plt.subplots(figsize=(10,7))
+ax1.pie(sizes, labels=labels, autopct='%1.1f%%',
+        shadow=True, startangle=90, wedgeprops = { 'linewidth' : 3, 'edgecolor' : 'white' }, colors=palette)
+ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle
+
+plt.suptitle("Tourist Residences Speak All Languages in Veneto", fontsize=20)
+
+
 
 
 if st.sidebar.checkbox("PLOTS"):
@@ -1119,13 +1241,14 @@ if st.sidebar.checkbox("PLOTS"):
              plt.text(vicenza_descriptive.index[i], vicenza_descriptive[i], str(number)+'%', ha='center', weight='bold')
         st.pyplot(plt.gcf())
     
-
-    plot = st.selectbox('Choose the Characteristic Analyzed'('Pet-friendly TR','TR with Pool','TR speaking foreign language(s)','TR with Private Parking Spots','TR with Wellness Area','TR with Restaurant'))
+    st.title('TR Characteristic Analysis')
+    plot = st.selectbox('Choose the Characteristic Analyzed',('Pet-friendly TR','TR with Pool','TR speaking foreign language(s)','TR with Private Parking Spots','TR with Wellness Area','TR with Restaurant'))
 
 
     if plot == 'Pet-friendly TR':
       st.title('Pet-Friendly TR in Veneto')
-      st.write('Definition of Animal Friendly --> Animal friendly tourist residences are accommodations that are: designed and managed to be welcoming and accommodating to both human guests and their animal companions. This may include features such as designated pet-friendly rooms or areas, easy access to outdoor spaces for exercise and relief, and possibly even on-site pet services such as grooming or boarding.')
+      st.write('The __first__ pie chart refers to the number of Pet-friendly TR normalized by number of TR per Provincia. The __second__ refers to the total number of Pet-friendly TR in Veneto')
+      st.write('Animal friendly tourist residences are accommodations that are: designed and managed to be welcoming and accommodating to both human guests and their animal companions. This may include features such as designated pet-friendly rooms or areas, easy access to outdoor spaces for exercise and relief, and possibly even on-site pet services such as grooming or boarding.')
       st.subheader('Pie Charts')
       st.write(fig1)
 
@@ -1138,7 +1261,8 @@ if st.sidebar.checkbox("PLOTS"):
     if plot == 'TR with Pool':
 
       st.title('TR with Pool in Veneto')
-      st.write('Definition of Pool: Tourist residences with pool refers to accomodation that have a swimming pool on the property. These types of properties are popular among tourists and vacationers who are looking for a place to stay that offers the convenience and luxury of having a pool to swim in during their stay. ')
+      st.write('The __first__ pie chart refers to the number of TR with Pool normalized by number of TR per Provincia. The __second__ refers to the total number of TR with Pool in Veneto')
+      st.write('Tourist residences with pool refers to accomodation that have a swimming pool on the property. These types of properties are popular among tourists and vacationers who are looking for a place to stay that offers the convenience and luxury of having a pool to swim in during their stay. ')
 
       st.subheader('Pie Charts')   
       st.write(fig4)
@@ -1168,6 +1292,37 @@ if st.sidebar.checkbox("PLOTS"):
       st.write('Pie charts with the portion of TR speaking English and All 4 languages')
       st.write(fig9)
       st.write(fig12)
+    
+    if plot == 'TR with Private Parking Spots':
+
+      st.title('TR with Private Parking Spots')
+      st.write('Tourist residences with private parking are accomodations that provide private parking spaces for guests. The private parking is a convenience for guests who have rented a vehicle or brought their own, as it provides a secure and convenient place to park.')
+
+      st.subheader('Pie Charts')
+      st.write('The __first__ pie chart refers to the number of TR with PP spots normalized by number of TR per Provincia. The __second__ refers to the total number of TR with PP spots in Veneto')   
+      st.write(fig4)
+
+      st.subheader('Bar Charts')
+      st.write(fig5)
+
+      st.subheader('Portion of TR wirh Pool in Veneto')
+      st.write(fig6)
+    
+    if plot == 'TR with Restaurant':
+      st.title('TR with Restaurant')
+      st.write('Tourist residences with a restaurant refers to accomodations that have an on-site restaurant. These types of properties are popular among tourists and vacationers who are looking for a place to stay that offers the convenience of having a restaurant where they can enjoy meals during their stay. The restaurant can be a shared space, or a private space that is only accessible to guests staying in the residence..')
+
+      st.subheader('Pie Charts')
+      st.write('The __first__ pie chart refers to the number of TR with Restaurant normalized by number of TR per Provincia. The __second__ refers to the total number of TR with Restaurant in Veneto')   
+      st.write(fig4)
+
+      st.subheader('Bar Charts')
+      st.write(fig5)
+
+      st.subheader('Portion of TR wirh Pool in Veneto')
+      st.write(fig6)
+
+
     
 
     

@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 from sklearn import preprocessing
 import seaborn as sb
 import numpy as np
+import folium 
 
 tourism_structures_df = pd.read_csv('https://www.veneto.eu/static/opendata/dove-alloggiare.csv')
 
@@ -401,6 +402,33 @@ city_list = [belluno_descriptive, padova_descriptive, treviso_descriptive, rovig
 st.title('Tourist Residences in Veneto :lion_face:')
 st.subheader('Nicolò Avesani VR490189, Final Project')
 st.sidebar.write("What do you want to see?")
+
+if st.sidebar.checkbox("INFO AND LEGEND"):
+
+  st.write('Welcome! My name is Nicolò Avesani, and this is my project. I have choosen a dataset called **Tourist Residences in Veneto**, which is focused on the description of all the tourist residences in Veneto (Italy).')
+  
+
+  city_coordinates = {
+    'Belluno': [46.13, 12.21],
+    'Padova': [45.40, 11.87],
+    'Rovigo': [45.17, 11.80],
+    'Treviso': [45.66, 12.24],
+    'Venezia': [45.44, 12.33],
+    'Verona': [45.44, 10.99],
+    'Vicenza': [45.55, 11.54]
+  }
+
+  marker_data = [(name, lat, lon) for name, (lat, lon) in city_coordinates.items()]
+
+  df = pd.DataFrame(marker_data, columns=['name', 'lat', 'lon'])
+
+  st.write("""# Map of Cities in the Veneto Region of Italy""")
+
+  st.map(df)
+
+
+
+
 
 
 if st.sidebar.checkbox("EDA"):
@@ -1247,8 +1275,9 @@ if st.sidebar.checkbox("PLOTS"):
 
     if plot == 'Pet-friendly TR':
       st.title('Pet-Friendly TR in Veneto')
+     
+      st.write('Animal friendly tourist residences are accommodations that are designed and managed to be welcoming and accommodating to both human guests and their animal companions. This may include features such as designated pet-friendly rooms or areas, easy access to outdoor spaces for exercise and relief, and possibly even on-site pet services such as grooming or boarding.')
       st.write('The __first__ pie chart refers to the number of Pet-friendly TR normalized by number of TR per Provincia. The __second__ refers to the total number of Pet-friendly TR in Veneto')
-      st.write('Animal friendly tourist residences are accommodations that are: designed and managed to be welcoming and accommodating to both human guests and their animal companions. This may include features such as designated pet-friendly rooms or areas, easy access to outdoor spaces for exercise and relief, and possibly even on-site pet services such as grooming or boarding.')
       st.subheader('Pie Charts')
       st.write(fig1)
 
@@ -1261,8 +1290,9 @@ if st.sidebar.checkbox("PLOTS"):
     if plot == 'TR with Pool':
 
       st.title('TR with Pool in Veneto')
-      st.write('The __first__ pie chart refers to the number of TR with Pool normalized by number of TR per Provincia. The __second__ refers to the total number of TR with Pool in Veneto')
       st.write('Tourist residences with pool refers to accomodation that have a swimming pool on the property. These types of properties are popular among tourists and vacationers who are looking for a place to stay that offers the convenience and luxury of having a pool to swim in during their stay. ')
+      st.write('The __first__ pie chart refers to the number of TR with Pool normalized by number of TR per Provincia. The __second__ refers to the total number of TR with Pool in Veneto')
+     
 
       st.subheader('Pie Charts')   
       st.write(fig4)
@@ -1311,7 +1341,7 @@ if st.sidebar.checkbox("PLOTS"):
     if plot == 'TR with Restaurant':
       st.title('TR with Restaurant')
       st.write('Tourist residences with a restaurant refers to accomodations that have an on-site restaurant. These types of properties are popular among tourists and vacationers who are looking for a place to stay that offers the convenience of having a restaurant where they can enjoy meals during their stay. The restaurant can be a shared space, or a private space that is only accessible to guests staying in the residence..')
-
+      
       st.subheader('Pie Charts')
       st.write('The __first__ pie chart refers to the number of TR with Restaurant normalized by number of TR per Provincia. The __second__ refers to the total number of TR with Restaurant in Veneto')   
       st.write(fig4)
@@ -1321,19 +1351,4 @@ if st.sidebar.checkbox("PLOTS"):
 
       st.subheader('Portion of TR wirh Pool in Veneto')
       st.write(fig6)
-
-
-    
-
-    
-  
-
-
-    
-  
-
-
-
-
-
 

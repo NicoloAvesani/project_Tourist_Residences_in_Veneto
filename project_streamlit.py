@@ -584,7 +584,7 @@ if st.sidebar.checkbox("EDA"):
 
     st.write('**Note! throughout the project I will use the acronym TR to indicate the Tourist Residences in Veneto**')
 
-    st.write('Firstly, I have imported the dataset using pandas. That is how it looks like:')
+    st.write('Firstly, I import the dataset using pandas. That is how it looks like:')
 
     st.dataframe(tourism_structures_df)
 
@@ -602,17 +602,16 @@ if st.sidebar.checkbox("EDA"):
     st.write('Info of the adjusted DF')
     st.code(code_adj_info)
 
-    st.write('Now I have adjusted the descriptive characteristics.')
+    st.write('Now I have the adjusted descriptive characteristics.')
     
-    st.header('Lets Clean up the Dataset!')
+    st.header("""Let's Clean up the Dataset!""")
 
-    st.write('Since, as I can see from information of DF, there are some problematic columns,')
-    st.write('I create a copy of the original dataframe in order to drop these that I will not use in my analysis.**_Problematic_** since they have unfixable null values.')
+    st.write('Since, as I can see from information of DF, there are some problematic columns, I create a copy of the original dataframe in order to drop the ones that I will not use in my analysis.**_Problematic_** since they have unfixable null values.')
 
     st.write('The dropped columns are: **LOCATION, SECONDARY TYPE, ADDRESS, HOUSE NUMBER, INTERNAL, ZIP CODE, PHONE, FAX, EMAIL ADDRESS, WEBSITE, AREA, LAST EDIT, IDENTIFICATION CODE**.')
     st.write('These columns provide __useless__ information, since they concern only the single residential facility, and are linked to **contact information**. ')
 
-    st.markdown("""I also drop the following columns that, even if they provide information about descriptive characteristics, are not relevant for my purposes:
+    st.markdown("""I also drop the following columns that, even if they provide descriptive informations, are not relevant for my purposes:
      - **INDOOR SWIMMING POOL**, 
      - **CONFERENCE ROOM**, 
      - **SOLARIUM**, 
@@ -624,7 +623,7 @@ if st.sidebar.checkbox("EDA"):
 
     st.title('Change the classification')
 
-    st.write('Since the classification of the tourist residences is an object column fill with all the single tourist residence classification rates, I want to split these values in different columns, which will have boolean values 1 and 0 depending on the classification of the TR ')
+    st.write('Since the classification of the tourist residences is an object column fill with all the classification rates, I want to split these values in different columns, which will have boolean values 1 and 0 depending on the classification of the TR ')
     
     st.write('These are the values inside the classification column (using the .unique() function):')
     st.code(code_class_unique)
@@ -643,7 +642,7 @@ if st.sidebar.checkbox("EDA"):
 
     st.dataframe(tourism_clear_class_groupby_sum.T)
 
-    st.write('The cleaning and modifications made so far has been made to build the graphs that can be seen in the PLOTS. Later I took the original file and modified it to make it ready for analysis with heatmap and correlation')
+    st.write('The cleaning and modifications made so far were necessary for plotting the graphs that can be seen in the section **PLOTS**. Later I took the original file and modified it to make it ready for analysis with heatmap and correlation')
 
     st.title('CLEANINIG FOR CORRELATION AND HEATMAP')
 
@@ -653,7 +652,7 @@ if st.sidebar.checkbox("EDA"):
     st.write('These are the info of my new DF:')
     st.code(code_ok_df)
 
-    st.write('The HEATMAP AND CORRELATION section show the correlation DF and Heatmap')
+    st.write('The **HEATMAP AND CORRELATION** section show the correlation DF and Heatmap')
 
 
 

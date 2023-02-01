@@ -461,6 +461,121 @@ if st.sidebar.checkbox("INFO AND LEGEND"):
   - Chiusura Temporanea = Temporary Closure
   """)
 
+## CLEAN FOR CORRELATION AND MODEL
+
+## under 3, over 3, over 4 TR
+## back to tourism_strustures_df
+
+tourism_df_to_drop = tourism_structures_df.copy()
+
+## drop the useless columns 
+tourism_df_ok = tourism_df_to_drop.drop(tourism_df_to_drop.columns[[2,4,6,7,8,9,10,11,12,13,14,16,19,20,21,23,26,27,28,29,30,31,32,33,34,35,36,42,43]], axis=1)
+
+## drop the Nan in classification column
+nan_mask = tourism_df_ok['CLASSIFICAZIONE'].isnull()
+tr_ok_clear_class_df = tourism_df_ok[nan_mask == False]
+
+## new indexes for the dataframe
+
+new_indexes = []
+
+for i in range(len(tr_ok_clear_class_df)):
+  new_indexes.append(i)
+
+tr_ok_clear_class_df.index = new_indexes
+
+## change classification data, from string to int
+
+for i in range(len(tr_ok_clear_class_df)):
+  if tr_ok_clear_class_df['CLASSIFICAZIONE'][i] == '1 *':
+    tr_ok_clear_class_df.loc[i, 'CLASSIFICAZIONE'] = int(1)
+  elif tr_ok_clear_class_df['CLASSIFICAZIONE'][i] == '2 **' or tr_ok_clear_class_df['CLASSIFICAZIONE'][i] == '2 Leoni':
+    tr_ok_clear_class_df.loc[i, 'CLASSIFICAZIONE'] = int(2)
+  elif tr_ok_clear_class_df['CLASSIFICAZIONE'][i] == '3 ***' or tr_ok_clear_class_df['CLASSIFICAZIONE'][i] == '3 Leoni' or tr_ok_clear_class_df['CLASSIFICAZIONE'][i] == '3 *** SUPERIOR':
+    tr_ok_clear_class_df.loc[i, 'CLASSIFICAZIONE'] = int(3)
+  elif tr_ok_clear_class_df['CLASSIFICAZIONE'][i] == '4 ****' or tr_ok_clear_class_df['CLASSIFICAZIONE'][i] == '4 Leoni' or tr_ok_clear_class_df['CLASSIFICAZIONE'][i] == '4 **** SUPERIOR':
+    tr_ok_clear_class_df.loc[i, 'CLASSIFICAZIONE'] = int(4)
+  elif tr_ok_clear_class_df['CLASSIFICAZIONE'][i] == '5 *****' or tr_ok_clear_class_df['CLASSIFICAZIONE'][i] == '5 Leoni' or tr_ok_clear_class_df['CLASSIFICAZIONE'][i] == '5 ***** lusso':
+    tr_ok_clear_class_df.loc[i, 'CLASSIFICAZIONE'] = int(5)
+
+## create new columns
+under_3_class = []
+
+for i in range(len(tr_ok_clear_class_df)):
+  if tr_ok_clear_class_df['CLASSIFICAZIONE'][i] == 1 or tr_ok_clear_class_df['CLASSIFICAZIONE'][i] == 2 :
+    under_3_class.append(int(1))
+  else:
+    under_3_class.append(int(0))
+
+class_3_4_5 = []
+
+for i in range(len(tr_ok_clear_class_df)):
+  if tr_ok_clear_class_df['CLASSIFICAZIONE'][i] == 3 or tr_ok_clear_class_df['CLASSIFICAZIONE'][i] == 4 or tr_ok_clear_class_df['CLASSIFICAZIONE'][i] == 5 :
+    class_3_4_5.append(int(1))
+  else:
+    class_3_4_5.append(int(0))
+
+class_4_5 = []
+
+for i in range(len(tr_ok_clear_class_df)):
+  if tr_ok_clear_class_df['CLASSIFICAZIONE'][i] == 4 or tr_ok_clear_class_df['CLASSIFICAZIONE'][i] == 5 :
+    class_4_5.append(int(1))
+  else:
+    class_4_5.append(int(0))
+
+class_5 = []
+
+for i in range(len(tr_ok_clear_class_df)):
+  if tr_ok_clear_class_df['CLASSIFICAZIONE'][i] == 5 :
+    class_5.append(int(1))
+  else:
+    class_5.append(int(0))
+
+
+tr_ok_clear_class_df['UNDER 3'] = under_3_class
+tr_ok_clear_class_df['G.E 3'] = class_3
+tr_ok_clear_class_df['G.E. 4'] = class_4
+tr_ok_clear_class_df['CLASS 5'] = class_5
+
+## new df
+tr_df = tr_ok_clear_class_df
+code_ok_df ='''
+Int64Index: 7337 entries, 0 to 7336
+Data columns (total 20 columns):
+ #   Column                Non-Null Count  Dtype 
+---  ------                --------------  ----- 
+ 0   PROVINCIA             7337 non-null   object
+ 1   COMUNE                7337 non-null   object
+ 2   TIPOLOGIA             7337 non-null   object
+ 3   DENOMINAZIONE         7337 non-null   object
+ 4   PISCINA               7337 non-null   int64 
+ 5   RISTORANTE            7337 non-null   int64 
+ 6   PARCHEGGIO            7337 non-null   int64 
+ 7   SAUNA                 7337 non-null   int64 
+ 8   FITNESS               7337 non-null   int64 
+ 9   ANIMALI AMMESSI       7337 non-null   int64 
+ 10  INGLESE               7337 non-null   int64 
+ 11  FRANCESE              7337 non-null   int64 
+ 12  TEDESCO               7337 non-null   int64 
+ 13  SPAGNOLO              7337 non-null   int64 
+ 14  CHIUSURA TEMPORANEA   7337 non-null   int64 
+ 15  CLASSIFICAZIONE       7337 non-null   object
+ 16  UNDER 3               7337 non-null   int64 
+ 17  G.E 3                 7337 non-null   int64 
+ 18  G.E. 4                7337 non-null   int64 
+ 19  CLASS 5               7337 non-null   int64 
+dtypes: int64(15), object(5)
+'''
+
+## create a groupby mean and sum by PROVINCIA
+
+tr_groupby_mean = tr_df.groupby(['PROVINCIA']).mean()
+
+tr_groupby_sum = tr_df.groupby(['PROVINCIA']).sum()
+
+
+
+
 
 
 
@@ -528,6 +643,21 @@ if st.sidebar.checkbox("EDA"):
     st.header('__TOTAL PER PROVINCIA__')
 
     st.dataframe(tourism_clear_class_groupby_sum.T)
+
+    st.write('The cleaning and modifications made so far has served to build the graphs that can be seen in the PLOTS. Later I took the original file and modified it to make it ready for analysis with heatmap and correlation')
+
+    st.title('CLEANINIG FOR CORRELATION AND HEATMAP')
+
+    st.write('This is the dataset with only the columns I will use for the correlation.')
+    st.dataframe(tr_ok_clear_class_df)
+
+    st.write('These are the info of my new DF:')
+    st.code(code_ok_df)
+
+    st.write('The HEATMAP AND CORRELATION section show the correlation DF and Heatmap')
+
+
+
 
 province = [
     'BELLUNO',
@@ -1164,7 +1294,6 @@ plt.suptitle("Tourist Residences Speak All Languages in Veneto", fontsize=20)
 
 
 
-
 if st.sidebar.checkbox("PLOTS"):
 
     st.title('PLOTS')  
@@ -1389,4 +1518,6 @@ if st.sidebar.checkbox("PLOTS"):
       st.subheader('Portion of TR wirh Pool in Veneto')
       st.write('How many TR have Restaurant?')
       st.write(fig6)
+
+if st.sidebar.checkbox("HEATMAP"):
 

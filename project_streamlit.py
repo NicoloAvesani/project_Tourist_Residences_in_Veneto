@@ -485,6 +485,15 @@ province = [
     'VICENZA'
 ]
 
+## which provincia has the higher number of TR?
+
+plt.figure(figsize=(10,10))
+plt.title('TR per Provincia')
+for i in range(len(city_list)):
+  plt.bar(province[i], city_len[i])
+  plt.text(province[i], city_len[i], str(city_len[i]), ha='center', weight='bold')
+
+
 ## ANIMAL FRIENDLY
 ## Definition of Animal Friendly:
 ## Animal friendly tourist residences are accommodations that are:
@@ -982,11 +991,21 @@ plt.suptitle("Tourist Residences Speak All Languages in Veneto", fontsize=20)
 
 if st.sidebar.checkbox("PLOTS"):
 
-    st.header('PLOTS')  
+    st.title('PLOTS')  
     st.write('In this section you will find PLOTS refering to the analysis of the TR characteristics.')
-    st.write('Firstly, you can see the full analysis of TR per Provincia in the two plots below.')
-    st.write('The former is a bar chart with the information of the number of TR in the chosen Provincia with the particular characteristic.')
-    st.write('The latter refers to the percentage of TR with the presence of the particular characteristic.')
+
+    ## which provincia has the higher number of TR?
+
+    
+    st.title('TR per Provincia')
+    for i in range(len(city_list)):
+      st.bar_chart(province[i], city_len[i])
+      
+
+
+    st.write('__Now__, you can see the full analysis of TR per Provincia in the two plots below.')
+    st.write('The __former__ is a bar chart with the information of the number of TR in the chosen Provincia with the particular characteristic.')
+    st.write('The __latter__ refers to the percentage of TR with the presence of the particular characteristic.')
     
     city = st.selectbox("__What Provincia do you want to analyze?__", province)
 

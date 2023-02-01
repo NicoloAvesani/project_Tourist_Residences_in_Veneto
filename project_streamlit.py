@@ -344,7 +344,7 @@ tourism_clear_class_groupby_mean = tourism_clear_class_df.groupby(['PROVINCIA'])
 
 
 
-## Now I can understand how many tourist residences per provincia has the characteristics in index
+## Now I can understand how many tourist residences by provincia has the characteristics in index
 
 tourism_clear_class_groupby_sum = tourism_clear_class_df.groupby(['PROVINCIA']).sum()
 
@@ -373,7 +373,7 @@ verona_df = tourism_clear_class_df[verona_mask]
 vicenza_mask = tourism_clear_class_df['PROVINCIA'] == 'VICENZA'
 vicenza_df = tourism_clear_class_df[vicenza_mask]
 
-## length of the dfs that I have just created gives me the number of tourist residences per provincia
+## length of the dfs that I have just created gives me the number of tourist residences by provincia
 
 belluno_tr = len(belluno_df)
 
@@ -437,7 +437,7 @@ if st.sidebar.checkbox("INFO AND LEGEND"):
   - Provincia = Province 
   - Comune = municipality
   - Centro Storico = Historical Centre
-  - Zona Fiera = Fair Area
+  - Zona Fiera = Exhibition Area
   - Lago = Lake
   - Aereoporto = Airport
   - Autostrada = Highway
@@ -622,7 +622,7 @@ if st.sidebar.checkbox("EDA"):
     st.write('__Info of the Cleaned DF__')
     st.code(code_cleaned_df)
 
-    st.title('Change the classificaion')
+    st.title('Change the classification')
 
     st.write('Since the classification of the tourist residences is an object column fill with all the single tourist residence classification rates, I want to split these values in different columns, which will have boolean values 1 and 0 depending on the classification of the TR ')
     
@@ -633,17 +633,17 @@ if st.sidebar.checkbox("EDA"):
     st.dataframe(tourism_clear_class_df)
     
     st.title('.Groupby([PROVINCIA])')
-    st.header('Info about Average and Total Number of TR with **descriptive variable** per Provincia')
+    st.header('Info about Average and Total Number of TR with **descriptive variable** by Provincia')
     st.write('The following dataframe gives me info about the avarage and total number of accomodations with certain characteristics:')
     st.header('__AVERAGE__')
 
     st.dataframe(tourism_clear_class_groupby_mean.T)
 
-    st.header('__TOTAL PER PROVINCIA__')
+    st.header('__TOTAL BY PROVINCIA__')
 
     st.dataframe(tourism_clear_class_groupby_sum.T)
 
-    st.write('The cleaning and modifications made so far has served to build the graphs that can be seen in the PLOTS. Later I took the original file and modified it to make it ready for analysis with heatmap and correlation')
+    st.write('The cleaning and modifications made so far has been made to build the graphs that can be seen in the PLOTS. Later I took the original file and modified it to make it ready for analysis with heatmap and correlation')
 
     st.title('CLEANINIG FOR CORRELATION AND HEATMAP')
 
@@ -671,7 +671,7 @@ province = [
 ## which provincia has the higher number of TR?
 
 plt.figure(figsize=(10,10))
-plt.title('TR per Provincia')
+plt.title('TR by Provincia')
 for i in range(len(city_list)):
   plt.bar(province[i], city_len[i])
   plt.text(province[i], city_len[i], str(city_len[i]), ha='center', weight='bold')
@@ -814,11 +814,11 @@ venezia_pool_tr = venezia_descriptive.loc['PISCINA']
 verona_pool_tr = verona_descriptive.loc['PISCINA']
 vicenza_pool_tr = vicenza_descriptive.loc['PISCINA']
 
-## array with ratio of pool tr and total tr per provincia
+## array with ratio of pool tr and total tr by provincia
 pool_array_1 = np.array([belluno_pool_tr/belluno_tr, padova_pool_tr/padova_tr, treviso_pool_tr/treviso_tr, rovigo_pool_tr/rovigo_tr, venezia_pool_tr/venezia_tr, verona_pool_tr/verona_tr, vicenza_pool_tr/vicenza_tr])
 normalized_arr_1 = preprocessing.normalize(pool_array_1[np.newaxis])
 
-## array with number of pool tr per provincia
+## array with number of pool tr by provincia
 pool_array_2 = np.array([belluno_pool_tr, padova_pool_tr, treviso_pool_tr, rovigo_pool_tr, venezia_pool_tr, verona_pool_tr, vicenza_pool_tr])
 normalized_arr_2 = preprocessing.normalize(pool_array_2[np.newaxis])
 
@@ -836,7 +836,7 @@ labels = province
 
 donut_circle = plt.Circle( (0,0), 0.45, color = 'white')
 
-## axs[0] --> this is the one in which I see the normalizet proportion of TR with Pool per provincia
+## axs[0] --> this is the one in which I see the normalizet proportion of TR with Pool by provincia
 axs[0].pie(data_1, autopct='%.2f%%', labels =labels, colors =palette)
 axs[0].add_artist(donut_circle)
 axs[0].set_title("Normalized Proportion of TR with Pool", fontweight='bold')
@@ -939,11 +939,11 @@ venezia_eng_tr = venezia_descriptive.loc['INGLESE']
 verona_eng_tr = verona_descriptive.loc['INGLESE']
 vicenza_eng_tr = vicenza_descriptive.loc['INGLESE']
 
-## array with ratio of pool tr and total tr per provincia
+## array with ratio of pool tr and total tr by provincia
 eng_array_1 = np.array([belluno_eng_tr/belluno_tr, padova_eng_tr/padova_tr, treviso_eng_tr/treviso_tr, rovigo_eng_tr/rovigo_tr, venezia_eng_tr/venezia_tr, verona_eng_tr/verona_tr, vicenza_eng_tr/vicenza_tr])
 normalized_arr_1 = preprocessing.normalize(eng_array_1[np.newaxis])
 
-## array with number of pool tr per provincia
+## array with number of pool tr by provincia
 eng_array_2 = np.array([belluno_eng_tr, padova_eng_tr, treviso_eng_tr, rovigo_eng_tr, venezia_eng_tr, verona_eng_tr, vicenza_eng_tr])
 normalized_arr_2 = preprocessing.normalize(eng_array_2[np.newaxis])
 
@@ -961,7 +961,7 @@ labels = province
 
 donut_circle = plt.Circle( (0,0), 0.45, color = 'white')
 
-## axs[0] --> this is the one in which I see the normalizet proportion of TR with Pool per provincia
+## axs[0] --> this is the one in which I see the normalizet proportion of TR with Pool by provincia
 axs[0].pie(data_1, autopct='%.2f%%', labels =labels, colors =palette)
 axs[0].add_artist(donut_circle)
 axs[0].set_title("Normalized Proportion of TR speaking English ", fontweight='bold')
@@ -1061,11 +1061,11 @@ venezia_lan_tr = venezia_descriptive.loc['LANGUAGES']
 verona_lan_tr = verona_descriptive.loc['LANGUAGES']
 vicenza_lan_tr = vicenza_descriptive.loc['LANGUAGES']
 
-## array with ratio of pool tr and total tr per provincia
+## array with ratio of pool tr and total tr by provincia
 lan_array_1 = np.array([belluno_lan_tr/belluno_tr, padova_lan_tr/padova_tr, treviso_lan_tr/treviso_tr, rovigo_lan_tr/rovigo_tr, venezia_lan_tr/venezia_tr, verona_lan_tr/verona_tr, vicenza_lan_tr/vicenza_tr])
 normalized_arr_1 = preprocessing.normalize(lan_array_1[np.newaxis])
 
-## array with number of pool tr per provincia
+## array with number of pool tr by provincia
 lan_array_2 = np.array([belluno_lan_tr, padova_lan_tr, treviso_lan_tr, rovigo_lan_tr, venezia_lan_tr, verona_lan_tr, vicenza_lan_tr])
 normalized_arr_2 = preprocessing.normalize(lan_array_2[np.newaxis])
 
@@ -1083,7 +1083,7 @@ labels = province
 
 donut_circle = plt.Circle( (0,0), 0.45, color = 'white')
 
-## axs[0] --> this is the one in which I see the normalizet proportion of TR with Pool per provincia
+## axs[0] --> this is the one in which I see the normalizet proportion of TR with Pool by provincia
 axs[0].pie(data_1, autopct='%.2f%%', labels =labels, colors =palette)
 axs[0].add_artist(donut_circle)
 axs[0].set_title("Normalized Proportion of TR speaking All Languages ", fontweight='bold')
@@ -1182,11 +1182,11 @@ venezia_park_tr = venezia_descriptive.loc['PARCHEGGIO']
 verona_park_tr = verona_descriptive.loc['PARCHEGGIO']
 vicenza_park_tr = vicenza_descriptive.loc['PARCHEGGIO']
 
-## array with ratio of pool tr and total tr per provincia
+## array with ratio of pool tr and total tr by provincia
 park_array_1 = np.array([belluno_park_tr/belluno_tr, padova_park_tr/padova_tr, treviso_park_tr/treviso_tr, rovigo_park_tr/rovigo_tr, venezia_park_tr/venezia_tr, verona_park_tr/verona_tr, vicenza_park_tr/vicenza_tr])
 normalized_arr_1 = preprocessing.normalize(park_array_1[np.newaxis])
 
-## array with number of pool tr per provincia
+## array with number of pool tr by provincia
 park_array_2 = np.array([belluno_park_tr, padova_park_tr, treviso_park_tr, rovigo_park_tr, venezia_park_tr, verona_park_tr, vicenza_park_tr])
 normalized_arr_2 = preprocessing.normalize(park_array_2[np.newaxis])
 
@@ -1204,7 +1204,7 @@ labels = province
 
 donut_circle = plt.Circle( (0,0), 0.45, color = 'white')
 
-## axs[0] --> this is the one in which I see the normalizet proportion of TR with Pool per provincia
+## axs[0] --> this is the one in which I see the normalizet proportion of TR with Pool by provincia
 axs[0].pie(data_1, autopct='%.2f%%', labels =labels, colors =palette)
 axs[0].add_artist(donut_circle)
 axs[0].set_title("Normalized Proportion of TR with Private Parking ", fontweight='bold')
@@ -1311,7 +1311,7 @@ if st.sidebar.checkbox("PLOTS"):
     st.bar_chart(len_prov_df)
 
     st.title('Analyze the Province')
-    st.write('__Now__, you can see the full analysis of TR per Provincia in the two plots below.')
+    st.write('__Now__, you can see the full analysis of TR by Provincia in the two plots below.')
     st.write('The __former__ is a bar chart with the information of the number of TR in the chosen Provincia with the particular characteristic.')
     st.write('The __latter__ refers to the percentage of TR with the presence of the particular characteristic.')
     
@@ -1341,7 +1341,7 @@ if st.sidebar.checkbox("PLOTS"):
         st.title('How many TR in Padova have...(numbers)?')
         st.bar_chart(padova_descriptive)
 
-        st.title('How many TR in Venezia have...(%)?')
+        st.title('How many TR in Padova have...(%)?')
         plt.title('Informations of TR in Padova', fontsize= 20)
         plt.bar('Total', city_len[1])
         for i in range(len(padova_descriptive)):
@@ -1356,7 +1356,7 @@ if st.sidebar.checkbox("PLOTS"):
 
         st.title('How many TR in Treviso have...(numbers)?')
         st.bar_chart(treviso_descriptive)
-        st.title('How many TR in Venezia have...(%)?')
+        st.title('How many TR in Treviso have...(%)?')
         plt.title('Informations of TR in Treviso', fontsize= 20)
         plt.bar('Total', city_len[2])
         for i in range(len(treviso_descriptive)):
@@ -1435,12 +1435,12 @@ if st.sidebar.checkbox("PLOTS"):
       st.title('Pet-Friendly TR in Veneto')
      
       st.write('Animal friendly tourist residences are accommodations that are designed and managed to be welcoming and accommodating to both human guests and their animal companions. This may include features such as designated pet-friendly rooms or areas, easy access to outdoor spaces for exercise and relief, and possibly even on-site pet services such as grooming or boarding.')
-      st.write('The __first__ pie chart refers to the number of Pet-friendly TR normalized by number of TR per Provincia. The __second__ refers to the total number of Pet-friendly TR in Veneto')
+      st.write('The __first__ pie chart refers to the number of Pet-friendly TR normalized by number of TR by Provincia. The __second__ refers to the total number of Pet-friendly TR in Veneto')
       st.subheader('Pie Charts')
       st.write(fig1)
 
       st.subheader('Bar Charts')
-      st.write('These bar charts show the percentage (1) and the number (2) of Pet-friendly TR per Provincia')
+      st.write('These bar charts show the percentage (1) and the number (2) of Pet-friendly TR by Provincia')
       st.write(fig2)
 
       st.subheader('Portion of Pet-Frientdly TR in Veneto')
@@ -1451,14 +1451,14 @@ if st.sidebar.checkbox("PLOTS"):
 
       st.title('TR with Pool in Veneto')
       st.write('Tourist residences with pool refers to accomodation that have a swimming pool on the property. These types of properties are popular among tourists and vacationers who are looking for a place to stay that offers the convenience and luxury of having a pool to swim in during their stay. ')
-      st.write('The __first__ pie chart refers to the number of TR with Pool normalized by number of TR per Provincia. The __second__ refers to the total number of TR with Pool in Veneto')
+      st.write('The __first__ pie chart refers to the number of TR with Pool normalized by number of TR by Provincia. The __second__ refers to the total number of TR with Pool in Veneto')
      
 
       st.subheader('Pie Charts')   
       st.write(fig4)
 
       st.subheader('Bar Charts')
-      st.write('These bar charts show the percentage (1) and the number (2) of TR with Pool per Provincia')
+      st.write('These bar charts show the percentage (1) and the number (2) of TR with Pool by Provincia')
       st.write(fig5)
 
       st.subheader('Portion of TR wirh Pool in Veneto')
@@ -1471,7 +1471,7 @@ if st.sidebar.checkbox("PLOTS"):
       st.write('The floolwing plots show the difference between TR speaking English (the universal language) and TR speaking all 4 principal languages (***Spanish, Deutch, French, English***. ')
     
       st.subheader('Pie Chart')
-      st.write('Pie charts showing the percentage of TR speaking foreign language(s) per provincia (Normalized) and in Veneto (Not Normalized)')
+      st.write('Pie charts showing the percentage of TR speaking foreign language(s) by provincia (Normalized) and in Veneto (Not Normalized)')
       st.write(fig7)
       st.write(fig10)
 
@@ -1491,11 +1491,11 @@ if st.sidebar.checkbox("PLOTS"):
       st.write('Tourist residences with private parking are accomodations that provide private parking spaces for guests. The private parking is a convenience for guests who have rented a vehicle or brought their own, as it provides a secure and convenient place to park.')
 
       st.subheader('Pie Charts')
-      st.write('The __first__ pie chart refers to the number of TR with PP spots normalized by number of TR per Provincia. The __second__ refers to the total number of TR with PP spots in Veneto')   
+      st.write('The __first__ pie chart refers to the number of TR with PP spots normalized by number of TR by Provincia. The __second__ refers to the total number of TR with PP spots in Veneto')   
       st.write(fig4)
 
       st.subheader('Bar Charts')
-      st.write('These bar charts show the percentage (1) and the number (2) of TR with PP Spots per Provincia')
+      st.write('These bar charts show the percentage (1) and the number (2) of TR with PP Spots by Provincia')
       st.write(fig5)
 
       st.subheader('Portion of TR wirh Pool in Veneto')
@@ -1507,11 +1507,11 @@ if st.sidebar.checkbox("PLOTS"):
       st.write('Tourist residences with a restaurant refers to accomodations that have an on-site restaurant. These types of properties are popular among tourists and vacationers who are looking for a place to stay that offers the convenience of having a restaurant where they can enjoy meals during their stay. The restaurant can be a shared space, or a private space that is only accessible to guests staying in the residence..')
       
       st.subheader('Pie Charts')
-      st.write('The __first__ pie chart refers to the number of TR with Restaurant normalized by number of TR per Provincia. The __second__ refers to the total number of TR with Restaurant in Veneto')   
+      st.write('The __first__ pie chart refers to the number of TR with Restaurant normalized by number of TR by Provincia. The __second__ refers to the total number of TR with Restaurant in Veneto')   
       st.write(fig4)
 
       st.subheader('Bar Charts')
-      st.write('These bar charts show the percentage (1) and the number (2) of TR with Restaurant per Provincia')
+      st.write('These bar charts show the percentage (1) and the number (2) of TR with Restaurant by Provincia')
       st.write(fig5)
 
       st.subheader('Portion of TR wirh Pool in Veneto')

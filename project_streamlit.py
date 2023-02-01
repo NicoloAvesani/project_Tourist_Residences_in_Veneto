@@ -465,9 +465,9 @@ if st.sidebar.checkbox("INFO AND LEGEND"):
 
 if st.sidebar.checkbox("EDA"):
 
-    st.header('## 1 Explore and Clean the Dataset')
+    st.title('1 Explore and Clean the Dataset')
 
-    st.write('Firstly, I import the dataset using pandas. That is how it looks like:')
+    st.write('Firstly, I have imported the dataset using pandas. That is how it looks like:')
 
     st.dataframe(tourism_structures_df)
 
@@ -478,56 +478,51 @@ if st.sidebar.checkbox("EDA"):
     st.header('What can I understand?')
     st.write('As I can see, the dataset have 45 columns and 8504 rows.')
     st.write('The data are for the majority composed by objects(43), with string values!')
-    st.write('Since I want to analyze the characteristics of the tourist residences,')
-    st.write('I need to trensform all the data with string values to boolean values 1 (True = Vero) and 0 (False = Falso)')
+    st.write('Since I want to analyze the characteristics of the tourist residences, I need to trensform all the data with string values to boolean values 1 (True = Vero) and 0 (False = Falso)')
     st.write('I can use the map function')
 
     st.code(code_map)
     st.write('Info of the adjusted DF')
     st.code(code_adj_info)
 
-    st.write('Now I have the descriptive characteristics adjusted.')
-    st.write('They tell me the mean of total tourist residences in Veneto with the index as characteristic ')
-
-
-    st.dataframe(ts_desriptive_mean)
-
-    st.header('What about the Province?')
-
-    st.write('Using groupby function, I can see the average number of TR with characteristics in column per Provincia')
-
-    st.dataframe(tr_groupby_mean)
-
+    st.write('Now I have adjusted the descriptive characteristics.')
+    
     st.header('Lets Clean up the Dataset!')
 
     st.write('Since, as I can see from information of DF, there are some problematic columns,')
     st.write('I create a copy of the original dataframe in order to drop these that I will not use in my analysis.**_Problematic_** since they have unfixable null values.')
 
-    st.write('The dropped columns are: LOCATION, SECONDARY TYPE, ADDRESS, HOUSE NUMBER, INTERNAL, ZIP CODE, PHONE, FAX, EMAIL ADDRESS, WEBSITE, AREA, LAST EDIT, IDENTIFICATION CODE.')
-    st.write('These columns provide useless information, since they concern only the single residential facility, and are linked to contact information. ')
+    st.write('The dropped columns are: **LOCATION, SECONDARY TYPE, ADDRESS, HOUSE NUMBER, INTERNAL, ZIP CODE, PHONE, FAX, EMAIL ADDRESS, WEBSITE, AREA, LAST EDIT, IDENTIFICATION CODE**.')
+    st.write('These columns provide __useless__ information, since they concern only the single residential facility, and are linked to **contact information**. ')
 
-    st.write('I also drop the following columns that, even if they provide information about descriptive characteristics, are not relevant for my purposes: INDOOR SWIMMING POOL, CONFERENCE ROOM, SOLARIUM, OUTSKIRTS, HILLS')
+    st.markdown("""I also drop the following columns that, even if they provide information about descriptive characteristics, are not relevant for my purposes:
+     - INDOOR SWIMMING POOL, 
+     - CONFERENCE ROOM, 
+     - SOLARIUM, 
+     - OUTSKIRTS, 
+     - HILLS""")
 
-    st.write('__There we go with the info of the Cleaned DF__')
+    st.write('__Info of the Cleaned DF__')
     st.code(code_cleaned_df)
 
-    st.header('Change the classificaion')
+    st.title('Change the classificaion')
 
-    st.write('Since the classification of the tourist residences is an object column fill with all the single tourist residence classification rates, I want to split these values in different columns, which have boolean values 1 and 0 depending on the classification of the TR ')
+    st.write('Since the classification of the tourist residences is an object column fill with all the single tourist residence classification rates, I want to split these values in different columns, which will have boolean values 1 and 0 depending on the classification of the TR ')
     
     st.write('These are the values inside the classification column (using the .unique() function):')
     st.code(code_class_unique)
     
-    st.write('That is the DF with new columns for the different classifications:')
+    st.write('That is the DF with new columns for the different classifications (swipe right):')
     st.dataframe(tourism_clear_class_df)
-
-    st.header('Info about Average and Total Number of TR per Provincia')
+    
+    st.title('.Groupby([PROVINCIA])')
+    st.header('Info about Average and Total Number of TR with **descriptive variable** per Provincia')
     st.write('The following dataframe gives me info about the avarage and total number of accomodations with certain characteristics:')
-    st.write('__AVERAGE__')
+    st.header('__AVERAGE__')
 
     st.dataframe(tourism_clear_class_groupby_mean.T)
 
-    st.write('__TOTAL PER PROVINCIA__')
+    st.header('__TOTAL PER PROVINCIA__')
 
     st.dataframe(tourism_clear_class_groupby_sum.T)
 

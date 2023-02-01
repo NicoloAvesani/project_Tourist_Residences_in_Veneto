@@ -3,6 +3,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sb
 import numpy as np
+import sklearn
+from sklearn import preprocessing
 
 
 tourism_structures_df = pd.read_csv('https://www.veneto.eu/static/opendata/dove-alloggiare.csv')
@@ -442,7 +444,7 @@ if st.sidebar.checkbox("INFO AND LEGEND"):
   - Mare = Sea
   - Termale = Thermal Area
 
-  ##Services
+  ## Services
   - Piscina = Swimming Pool
   - Ristorante = Restaurant
   - Parcheggio = Parking Spots

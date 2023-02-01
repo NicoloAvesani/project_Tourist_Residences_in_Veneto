@@ -1578,7 +1578,7 @@ if st.sidebar.checkbox("MODEL"):
        'INGLESE', 'LANGUAGES' ]]
 
 
-  choose_class = st.selectbox('__Choose the Classification__',('Under 3 Classification TR','Over 3 Classification TR','Over 4 Classification TR','5 Class TR'))
+  choose_class = st.selectbox('__Choose the Classification__',('Under 3 Classification TR','Greater Equal 3 Classification TR','Greater Equal 4 Classification TR','5 Class TR'))
   
   if choose_class == 'Under 3 Classification TR':
 

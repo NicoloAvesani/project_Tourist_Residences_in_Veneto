@@ -4,8 +4,16 @@ verify_ssl = true
 name = "py"
 
 [packages]
+streamlit = "*"
+pandas = "*"
+matplotlib = "*"
+sklearn = "*"
+seaborn = "*"
+folium = "*"
+scikit-learn = "*"
+ipython = "*"
 
 [requires]
-python_version = "3.10.9"
+python_version = "3.10.7"
 
 [dev-packages]

@@ -995,7 +995,7 @@ if st.sidebar.checkbox("PLOTS"):
     
     st.title("City Lengths by Province")
 
-    len_prov = {'TOTAL':7337,'BELLUNO':825, 'PADOVA':553, 'TREVISO':555, 'ROVIGO':178, 'VENEZIA':2570, 'VERONA':2024, 'VICENZA':632}
+    len_prov = {'BELLUNO':825, 'PADOVA':553, 'TREVISO':555, 'ROVIGO':178, 'VENEZIA':2570, 'VERONA':2024, 'VICENZA':632}
     len_prov = pd.Series(len_prov)
     len_prov_df = pd.DataFrame(len_prov)
     len_prov_df.columns = ['# TR']

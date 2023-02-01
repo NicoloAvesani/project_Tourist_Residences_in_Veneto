@@ -1312,9 +1312,11 @@ if st.sidebar.checkbox("PLOTS"):
       st.write(fig1)
 
       st.subheader('Bar Charts')
+      st.write('These bar charts show the percentage (1) and the number (2) of Pet-friendly TR per Provincia')
       st.write(fig2)
 
       st.subheader('Portion of Pet-Frientdly TR in Veneto')
+      st.write('How many TR are Pet-friendly?')
       st.write(fig3)
 
     if plot == 'TR with Pool':
@@ -1328,28 +1330,30 @@ if st.sidebar.checkbox("PLOTS"):
       st.write(fig4)
 
       st.subheader('Bar Charts')
+      st.write('These bar charts show the percentage (1) and the number (2) of TR with Pool per Provincia')
       st.write(fig5)
 
       st.subheader('Portion of TR wirh Pool in Veneto')
+      st.write('How many TR have Pool?')
       st.write(fig6)
 
 
     if plot == 'TR speaking foreign language(s)':
-      st.title('Difference between English and All 4 Lenguages')
-      st.write('The floolwing plots show the difference between TR speaking English (the universal lenguage) and TR speaking all 4 principal lenguages (***Spanish, Deutch, French, English***. ')
+      st.title('Difference between English and All 4 Languages')
+      st.write('The floolwing plots show the difference between TR speaking English (the universal language) and TR speaking all 4 principal languages (***Spanish, Deutch, French, English***. ')
     
       st.subheader('Pie Chart')
-      st.write('Pie charts showing the percentage of TR speaking foreign lenguage(s) per provincia (Normalized) and in Veneto (Not Normalized)')
+      st.write('Pie charts showing the percentage of TR speaking foreign language(s) per provincia (Normalized) and in Veneto (Not Normalized)')
       st.write(fig7)
       st.write(fig10)
 
       st.subheader('Bar Charts')
-      st.write('Bar chart show the ratio and number of TR speaking foreign lenguage(s)')
+      st.write('Bar chart show the percentage and number of TR speaking foreign language(s)')
       st.write(fig8)
       st.write(fig11)
 
-      st.subheader('Portion of TR Speaking Foreign Lenguage(s)')
-      st.write('Pie charts with the portion of TR speaking English and All 4 languages')
+      st.subheader('Portion of TR Speaking Foreign Language(s)')
+      st.write('The two pie charts show how the two descriptive variables lead to opposite results in the number of tourist residences ')
       st.write(fig9)
       st.write(fig12)
     
@@ -1363,9 +1367,11 @@ if st.sidebar.checkbox("PLOTS"):
       st.write(fig4)
 
       st.subheader('Bar Charts')
+      st.write('These bar charts show the percentage (1) and the number (2) of TR with PP Spots per Provincia')
       st.write(fig5)
 
       st.subheader('Portion of TR wirh Pool in Veneto')
+      st.write('How many TR have Private Parking Spots?')
       st.write(fig6)
     
     if plot == 'TR with Restaurant':
@@ -1377,8 +1383,10 @@ if st.sidebar.checkbox("PLOTS"):
       st.write(fig4)
 
       st.subheader('Bar Charts')
+      st.write('These bar charts show the percentage (1) and the number (2) of TR with Restaurant per Provincia')
       st.write(fig5)
 
       st.subheader('Portion of TR wirh Pool in Veneto')
+      st.write('How many TR have Restaurant?')
       st.write(fig6)
 

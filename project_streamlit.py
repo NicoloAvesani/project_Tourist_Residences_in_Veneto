@@ -1475,7 +1475,7 @@ if st.sidebar.checkbox("PLOTS"):
       st.write(fig10)
 
       st.subheader('Bar Charts')
-      st.write('Bar chart show the percentage and number of TR speaking foreign language(s)')
+      st.write('Bar charts show the percentage and number of TR speaking foreign language(s)')
       st.write(fig8)
       st.write(fig11)
 
@@ -1546,6 +1546,16 @@ if st.sidebar.checkbox("CORRELATION AND HEATMAP"):
   sb.heatmap(tr_corr, annot=True)
 
   st.write(fig16)
+
+  st.write('The heatmap shows the correlation between two descriptive variables. The higher is the value of the correlation (the more near to 1 it is) the lighter is the color of the cell, and vice versa.')
+  st.write('In the next section I tried to build a linear regression model in order to study how the correlation changes as the classification of the tourist residence increases')
+
+
+
+
+
+
+
 
 
 

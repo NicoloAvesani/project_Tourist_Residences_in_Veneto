@@ -1050,10 +1050,10 @@ ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle
 plt.suptitle("Tourist Residences Speak English in Veneto", fontsize=20)
 
 
-## ALL FOUR LANGUAGES (ENGLISH, SPANISH, DEUTH, FRENCH)
+## ALL FOUR LANGUAGES (ENGLISH, SPANISH, GERMAN, FRENCH)
 ## Definition of 4 Languages
-##Tourist residences that speak English, Spanish, Deutch, French refer to accomodations where the staff or management can communicate effectively in multiple languages,
-## including English, Spanish, Deutch, and French with the guests. 
+##Tourist residences that speak English, Spanish, German, French refer to accomodations where the staff or management can communicate effectively in multiple languages,
+## including English, Spanish, German, and French with the guests. 
 
 belluno_lan_tr = belluno_descriptive.loc['LANGUAGES']
 padova_lan_tr = padova_descriptive.loc['LANGUAGES']

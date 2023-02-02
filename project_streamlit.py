@@ -1555,7 +1555,7 @@ if st.sidebar.checkbox("PLOTS"):
     if plot == 'Pet-friendly TR':
       st.title('Pet-Friendly TR in Veneto')
      
-      st.write('Animal friendly tourist residences are accommodations that are designed and managed to be welcoming and accommodating to both human guests and their animal companions. This may include features such as designated pet-friendly rooms or areas, easy access to outdoor spaces for exercise and relief, and possibly even on-site pet services such as grooming or boarding.')
+      st.write('Pet-friendly tourist residences are accommodations that are designed and managed to be welcoming and accommodating to both human guests and their animal companions. This may include features such as designated pet-friendly rooms or areas, easy access to outdoor spaces for exercise and relief, and possibly even on-site pet services such as grooming or boarding.')
       st.write('The __first__ pie chart refers to the number of Pet-friendly TR normalized by number of TR by Provincia. The __second__ refers to the total number of Pet-friendly TR in Veneto')
       st.subheader('Pie Charts')
       st.write(fig1)

@@ -655,7 +655,7 @@ if st.sidebar.checkbox("EDA"):
     st.write('The **HEATMAP AND CORRELATION** section show the correlation DF and Heatmap')
 
 
-
+## PLOTS
 
 province = [
     'BELLUNO',
@@ -676,8 +676,8 @@ for i in range(len(city_list)):
   plt.text(province[i], city_len[i], str(city_len[i]), ha='center', weight='bold')
 
 
-## ANIMAL FRIENDLY
-## Definition of Animal Friendly:
+## PET-FRIENDLY
+## Definition of PET Friendly:
 ## Animal friendly tourist residences are accommodations that are:
 ## designed and managed to be welcoming and accommodating to both human guests and their animal companions.
 ## This may include features such as designated pet-friendly rooms or areas, 
@@ -808,6 +808,8 @@ plt.suptitle("Pet Friendly Tourist Residences in Veneto", fontsize=20)
 
 
 ## POOL
+
+
 belluno_pool_tr = belluno_descriptive.loc['PISCINA']
 padova_pool_tr = padova_descriptive.loc['PISCINA']
 treviso_pool_tr = treviso_descriptive.loc['PISCINA']
@@ -920,6 +922,7 @@ ax1.pie(sizes, labels=labels, autopct='%1.1f%%',
 ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle
 
 plt.suptitle("Tourist Residences with Pool in Veneto", fontsize=20)
+
 
 ## ENGLISH 
 ## Definition of English:
@@ -1045,6 +1048,7 @@ ax1.pie(sizes, labels=labels, autopct='%1.1f%%',
 ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle
 
 plt.suptitle("Tourist Residences Speak English in Veneto", fontsize=20)
+
 
 ## ALL FOUR LANGUAGES (ENGLISH, SPANISH, DEUTH, FRENCH)
 ## Definition of 4 Languages
@@ -1669,6 +1673,7 @@ if st.sidebar.checkbox("CORRELATION AND HEATMAP"):
   st.write('In the next section I try to build a linear regression model in order to study how the correlation changes as the classification of the tourist residence increases')
 
 
+## MODEL
 ##  linear regression model
 
 if st.sidebar.checkbox("MODEL"):

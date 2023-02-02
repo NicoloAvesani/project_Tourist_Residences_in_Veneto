@@ -1707,11 +1707,11 @@ if st.sidebar.checkbox("MODEL"):
 
     reg=LinearRegression().fit(X,y_under_3)
 
-  if choose_class == 'Over 3 Classification TR':
+  if choose_class == 'Greater Equal 3 Classification TR':
 
     reg=LinearRegression().fit(X,y_over_3)
 
-  if choose_class == 'Over 4 Classification TR':
+  if choose_class == 'Greater Equal 4 Classification TR':
 
     reg=LinearRegression().fit(X,y_over_4)
 

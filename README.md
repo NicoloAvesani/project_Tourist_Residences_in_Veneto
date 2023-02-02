@@ -17,6 +17,6 @@ I divided the code into 5 sections:
 - CORRELATION AND HEATMAP (Find correlation between variables and plot into heatmap)
 - MODEL (Linear regression model)
 
-The aim of the project is to find out how the relation between descriptive variables(independent variables) and the TR classification (dependent variable) changes by increasing/decreasing the classification of Tourist Residences in Veneto.
+The aim of the project is to find out how the relation between descriptive variables(independent variables) and the TR classification (dependent variable) change by increasing/decreasing the classification of Tourist Residences in Veneto.
 Results are visible by changing the classification on the model.
 

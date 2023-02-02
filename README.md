@@ -8,3 +8,15 @@ PROGRAMMING FINAL PROJECT 2022-2023
 I'm Nicolò Avesani, Data Science student in Verona. 
 My project is focused on a dataset called 'Tourist Residences in Veneto'.
 
+There are two files with the code of my project : 'project_on_colab.ipynb'(with the development of the code) and 'project_streamlit.py'(use for the streamlit presentation).
+
+I divided the code into 5 sections: 
+- INTRO AND LEGEND (I give some information on the dataset)
+- EDA (Exploratory Data Analysis)
+- PLOTS (Show some intresting plots)
+- CORRELATION AND HEATMAP (Find correlation between variables and plot into heatmap)
+- MODEL (Linear regression model)
+
+The aim of the project is to find out how the relation between variables changes by changing the classification of Tourist Residences in Veneto.
+Results are visible by changing the classification on the model.
+

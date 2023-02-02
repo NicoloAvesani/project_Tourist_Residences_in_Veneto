@@ -633,7 +633,7 @@ if st.sidebar.checkbox("EDA"):
     
     st.title('.Groupby([PROVINCIA])')
     st.header('Info about Average (.mean()) and Total Number (.sum()) of TR with **descriptive variable** by Provincia')
-    st.write('The following dataframe gives me info about the avarage and total number of accomodations with certain characteristics:')
+    st.write('The following dataframe gives me info about the average and total number of accomodations with certain characteristics:')
     st.header('__AVERAGE__')
 
     st.dataframe(tourism_clear_class_groupby_mean.T)
